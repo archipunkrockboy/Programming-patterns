@@ -23,7 +23,7 @@ def count_mutually_prime_dig_with_number(number, number1)
 end
 #делитель числа, являющийся взаимно простым с наибольшим количеством цифр данного числа
 def div_mutually_prime_with_max_count_dig(number)
-  current_divider = number
+  current_divider = nil
   max_count = 0
   number.pred.downto(2).each do |i|
     if (number%i).zero?
