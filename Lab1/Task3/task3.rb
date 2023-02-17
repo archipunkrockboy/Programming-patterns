@@ -1,4 +1,5 @@
-# frozen_string_literal: true
+#ruby task3.rb 0  "array.txt"
+
 def min_element(array)
   nil if array.empty?
   min_element = array[0]
@@ -24,7 +25,7 @@ def find_first_positive_element_index(array)
   for i in 0..array.size-1 do
     return i if array[i] > 0
   end
-  -1
+  nil
 end
 
 if ARGV.size != 2
