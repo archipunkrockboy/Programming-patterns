@@ -1,4 +1,4 @@
-#минимальный элемент массива
+# frozen_string_literal: true
 def min_element(array)
   nil if array.empty?
   min_element = array[0]
@@ -19,14 +19,31 @@ def max_element(array)
   max_element
 end
 
-def first_positive_element_index(array)
+def find_first_positive_element_index(array)
   nil if array.empty?
   for i in 0..array.size-1 do
     return i if array[i] > 0
   end
-  nil
+  -1
 end
 
-p min_element([-5, 2, 4, -11])
-p max_element([-2, 10, -4, 11])
-p first_positive_element_index([4, -3, 4])
+if ARGV.size != 2
+  p"Некорректный ввод аргументов!"
+  return
+end
+
+methods = [method(:min_element), method(:max_element), method(:find_first_positive_element_index)]
+method_names = ["минимальный элемент массива", "максимальный элемент массива", "индекс первого положительного элемента массива"]
+method_index = ARGV[0].to_i
+file_path = ARGV[1]
+
+unless method_index.between?(0, methods.size-1)
+  p"нет метода с введённым номером!"
+  return
+end
+
+file = File.open(file_path)
+array = file.readline.split(' ').map{|value| value.to_i}
+
+p "Исходный массив: #{array}"
+p "#{method_names[method_index]}: #{methods[method_index].call(array)}"
