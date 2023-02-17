@@ -1,4 +1,6 @@
 array = [1, 7, 8, 0, 1, 4, 6, 2]
+#Дан целочисленный массив. Необходимо найти индексы двух
+#наименьших элементов массива.
 def two_min_index_of_array(array)
   return nil if array.empty?
   return array[0] if array.size == 1
@@ -12,4 +14,11 @@ def two_min_index_of_array(array)
   end
 end
 
-p two_min_index_of_array(array)
+def find_missing_numbers(array)
+  return nil if array.empty?
+  missing_numbers = []
+  (array.minmax[0]..array.minmax[1]).to_a.map{|number| missing_numbers.append(number) unless array.include?(number) }
+  missing_numbers
+end
+
+p find_missing_numbers(array)
