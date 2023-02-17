@@ -24,7 +24,7 @@ def first_positive_element_index(array)
   for i in 0..array.size-1 do
     return i if array[i] > 0
   end
-  i
+  nil
 end
 
 p min_element([-5, 2, 4, -11])
