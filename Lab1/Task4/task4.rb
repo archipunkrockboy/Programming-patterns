@@ -1,5 +1,4 @@
-array = [1.0, 1, 1.0]
-ar = [7, 7, 7, 1, 2, 1,1]
+array = [1, 2, 5, 2, 6, 8, 2, 6]
 #Дан целочисленный массив. Необходимо найти индексы двух
 #наименьших элементов массива.
 def two_min_index_of_array(array)
@@ -14,6 +13,7 @@ def two_min_index_of_array(array)
     [index1, index2]
   end
 end
+
 #Дан целочисленный массив. Необходимо найти все пропущенные числа.
 def find_missing_numbers(array)
   return nil if array.empty?
@@ -22,22 +22,7 @@ def find_missing_numbers(array)
   missing_numbers
 end
 
-#Дан целочисленный массив. Найти количество его локальных максимумов.
-# def local_max_count(array)
-#   i = 1
-#   array.inject(0) do |count, number|
-#     if i != array.size-1
-#       if number < array[i] and array[i + 1] < array[i]
-#         count += 1
-#         c += 1
-#         p count
-#       end
-#       #p "##{number}    #{array[i]}    #{array[i+1]}"
-#       i += 1
-#     end
-#   end
-# end
-
+#количество локальных максимумов
 def local_max_count(array)
   count = 0
   i = 1
@@ -51,6 +36,7 @@ def local_max_count(array)
   count
 end
 
+#чередуются ли целые и вещественные числа
 def alternate_int_float?(array)
   i = 1
   array.map do |number|
@@ -60,10 +46,19 @@ def alternate_int_float?(array)
   true
 end
 
+#проверка на простоту
 def prime?(number)
   number.pred.downto(2).map{|i| return false if (number%i).zero?}
   true
 end
 
+#Для введенного списка посчитать среднее арифметическое непростых
+# элементов, которые больше, чем среднее арифметическое простых.
+def avg_not_prime_numbers(array)
+  avg_sum_prime = array.filter{|number| prime?(number)}.sum / array.filter{|number| prime?(number)}.length.to_f
+  array.filter{|number| not(prime?(number))}.sum / array.filter{|number| not(prime?(number)) and number > avg_sum_prime}.length.to_f
+end
+
+p avg_not_prime_numbers(array)
 
 
