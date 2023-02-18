@@ -1,4 +1,3 @@
-p"Как тебя зовут?"
 name = ARGV[0]
 p("Привет, #{name}! Какой твой любимый язык программирования?")
 programming_language = STDIN.gets.chomp.downcase

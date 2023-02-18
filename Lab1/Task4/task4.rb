@@ -60,4 +60,10 @@ def alternate_int_float?(array)
   true
 end
 
+def prime?(number)
+  number.pred.downto(2).map{|i| return false if (number%i).zero?}
+  true
+end
+
+
 
