@@ -59,6 +59,45 @@ def avg_not_prime_numbers(array)
   array.filter{|number| not(prime?(number))}.sum / array.filter{|number| not(prime?(number)) and number > avg_sum_prime}.length.to_f
 end
 
-p avg_not_prime_numbers(array)
+def menu(methods)
+  while true
+    p"1 - ввод с клавиатуры"
+    p"2 - чтение из файла"
+    p"3 - выход"
+    input = STDIN.gets.chomp.to_i
+    case input
+    when 1
+      array = Array.new
+      print "Количество элементов: "
+      n = STDIN.gets.chomp.to_i
+      for i in 0..n-1 do
+        array[i] = STDIN.gets.chomp.to_i
+      end
+      p "Выберите метод: "
+      method_index = STDIN.gets.chomp.to_i
+      p methods[method_index].call(array)
+    when 2
+      file = File.open("Task4/array.txt")
+      array = file.readline.split(" ").map{|value| value.to_i}
+      print "Выберите метод: "
+      p methods
+      method_index = STDIN.gets.chomp.to_i
+      p methods[method_index].call(array)
+    when 3
+      break
+    else
+      p "Нет пункта с введённым номером!"
+    end
+  end
+end
+
+methods = [
+  method(:two_min_index_of_array),
+  method(:find_missing_numbers),
+  method(:local_max_count),
+  method(:alternate_int_float?),
+  method(:avg_not_prime_numbers)
+          ]
+menu(methods)
 
 
