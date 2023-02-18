@@ -1,4 +1,4 @@
-array = [1, 7, 8, 0, 1, 4, 6, 2]
+array = [12, 7, 8, 0, 11, 4, 12, 11]
 #Дан целочисленный массив. Необходимо найти индексы двух
 #наименьших элементов массива.
 def two_min_index_of_array(array)
@@ -13,7 +13,7 @@ def two_min_index_of_array(array)
     [index1, index2]
   end
 end
-
+#Дан целочисленный массив. Необходимо найти все пропущенные числа.
 def find_missing_numbers(array)
   return nil if array.empty?
   missing_numbers = []
@@ -21,4 +21,31 @@ def find_missing_numbers(array)
   missing_numbers
 end
 
-p find_missing_numbers(array)
+#Дан целочисленный массив. Найти количество его локальных максимумов.
+# def local_max_count(array)
+#   i = 1
+#   array.inject(0) do |count, number|
+#     if i != array.size-1
+#       if number < array[i] and array[i + 1] < array[i]
+#         count += 1
+#         c += 1
+#         p count
+#       end
+#       #p "##{number}    #{array[i]}    #{array[i+1]}"
+#       i += 1
+#     end
+#   end
+# end
+
+def local_max_count(array)
+  count = 0
+  i = 1
+  array.map{|number|
+    if i != array.size - 1
+      if number < array[i] and array[i + 1] < array[i]
+        count = count.succ
+      end
+      i = i.succ
+    end }
+  count
+end
