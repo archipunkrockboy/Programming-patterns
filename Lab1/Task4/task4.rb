@@ -1,4 +1,5 @@
-array = [12, 7, 8, 0, 11, 4, 12, 11]
+array = [1.0, 1, 1.0]
+ar = [7, 7, 7, 1, 2, 1,1]
 #Дан целочисленный массив. Необходимо найти индексы двух
 #наименьших элементов массива.
 def two_min_index_of_array(array)
@@ -49,3 +50,14 @@ def local_max_count(array)
     end }
   count
 end
+
+def alternate_int_float?(array)
+  i = 1
+  array.map do |number|
+    return false if array[i].class == number.class
+    i += 1
+  end
+  true
+end
+
+
