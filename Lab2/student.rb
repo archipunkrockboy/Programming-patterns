@@ -1,8 +1,7 @@
 class Student
-  attr_reader :surname, :name, :lastname,
-              :id, :phone, :tg, :mail, :git
-  attr_writer :surname, :name, :lastname,
-              :id, :phone, :tg, :mail, :git
+  attr_accessor :surname, :name, :lastname
+  attr_reader :id, :phone, :tg, :mail, :git
+
   def initialize(surname, name, lastname, optional_parameters={})
     self.surname = surname
     self.name = name
@@ -13,7 +12,45 @@ class Student
     self.mail = optional_parameters[:mail]
     self.git = optional_parameters[:git]
   end
-  
+  #валидаторы
+  def self.valid_phone?(phone)
+    phone.match(/^(\+7|8)((\(\d{3}\))|\d{3})\d{3}(-\d{2}-\d{2}|\d{4})$/)
+  end
+  def self.valid_mail?(mail)
+    mail.match(/^[\w_\.\?!;'"]+@[1-9a-z]+\.(ru|com)$/)
+  end
+
+  #возможно стоит в будущем как-то объединить эти две валидации, тк проверка од
+  def self.valid_tg?(tg)
+    tg.match(/^@[a-z]\w*$/)
+  end
+  def self.valid_git?(git)
+    git.match(/^@[a-z]\w*$/)
+  end
+
+  #сеттеры с проверкой
+  def phone=(phone)
+    raise ArgumentError, "Invalid value: #{phone}" if !phone.nil? && !Student.valid_phone?(phone)
+    @phone = phone
+  end
+
+  def tg=(tg)
+    raise ArgumentError, "Invalid value: #{tg}" if tg.nil? || !Student.valid_tg?(tg)
+    @tg = tg
+  end
+
+  def mail=(mail)
+    raise ArgumentError, "Invalid value: #{mail}" if mail.nil? || !Student.valid_mail?(mail)
+    @mail = mail
+  end
+
+  def git=(git)
+    raise ArgumentError, "Invalid value: #{git}" if git.nil? || !Student.valid_git?(git)
+    @git = git
+  end
+  def id
+    @id
+  end
+
 end
 
-a = Student.new(1, 2, 3,  {id: 5, mail: 7})
