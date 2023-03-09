@@ -1,6 +1,6 @@
 class Student
-  attr_accessor :surname, :name, :lastname
-  attr_reader :id, :phone, :tg, :mail, :git
+  attr_accessor :surname, :name, :lastname, :id
+  attr_reader :phone, :tg, :mail, :git
 
   def initialize(surname, name, lastname, optional_parameters={})
     self.surname = surname
@@ -30,27 +30,28 @@ class Student
 
   #сеттеры с проверкой
   def phone=(phone)
-    raise ArgumentError, "Invalid value: #{phone}" if !phone.nil? && !Student.valid_phone?(phone)
+    raise ArgumentError, "Invalid phone value: #{phone}" if !phone.nil? && !Student.valid_phone?(phone)
     @phone = phone
   end
 
   def tg=(tg)
-    raise ArgumentError, "Invalid value: #{tg}" if tg.nil? || !Student.valid_tg?(tg)
+    raise ArgumentError, "Invalid telegram value: #{tg}" if !tg.nil? && !Student.valid_tg?(tg)
     @tg = tg
   end
 
   def mail=(mail)
-    raise ArgumentError, "Invalid value: #{mail}" if mail.nil? || !Student.valid_mail?(mail)
+    raise ArgumentError, "Invalid mail value: #{mail}" if !mail.nil? && !Student.valid_mail?(mail)
     @mail = mail
   end
 
   def git=(git)
-    raise ArgumentError, "Invalid value: #{git}" if git.nil? || !Student.valid_git?(git)
+    raise ArgumentError, "Invalid git value: #{git}" if !git.nil? && !Student.valid_git?(git)
     @git = git
   end
-  def id
-    @id
-  end
 
+  #есть ли гит и любой контакт для связи?(почта, телеграм или номер телефона)
+  def validate?
+    !git.nil? && !(mail.nil? && tg.nil? && phone.nil?)
+  end
 end
 
