@@ -2,15 +2,15 @@ class Student
   attr_accessor :surname, :name, :lastname, :id
   attr_reader :phone, :tg, :mail, :git
 
-  def initialize(surname, name, lastname, optional_parameters={})
+  def initialize(surname:, name:, lastname:, id: nil, phone: nil, tg: nil, mail: nil, git: nil)
     self.surname = surname
     self.name = name
     self.lastname = lastname
-    self.id = optional_parameters[:id]
-    self.phone = optional_parameters[:phone]
-    self.tg = optional_parameters[:tg]
-    self.mail = optional_parameters[:mail]
-    self.git = optional_parameters[:git]
+    self.id = id
+    self.phone = phone
+    self.tg = tg
+    self.mail = mail
+    self.git = git
   end
   #валидаторы
   def self.valid_phone?(phone)
@@ -48,8 +48,12 @@ class Student
     raise ArgumentError, "Invalid git value: #{git}" if !git.nil? && !Student.valid_git?(git)
     @git = git
   end
-
-  #есть ли гит и любой контакт для связи?(почта, телеграм или номер телефона)
+  def set_contacts(phone: nil, tg: nil, mail: nil)
+    self.phone=(phone)
+    self.tg=(tg)
+    self.mail=(mail)
+  end
+    #есть ли гит и любой контакт для связи?(почта, телеграм или номер телефона)
   def validate?
     !git.nil? && !(mail.nil? && tg.nil? && phone.nil?)
   end
