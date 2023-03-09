@@ -7,10 +7,8 @@ class Student
     self.name = name
     self.lastname = lastname
     self.id = id
-    self.phone = phone
-    self.tg = tg
-    self.mail = mail
     self.git = git
+    set_contacts(phone: phone, tg: tg, mail: mail)
   end
   #валидаторы
   def self.valid_phone?(phone)
