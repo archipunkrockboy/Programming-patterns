@@ -1,0 +1,42 @@
+@startuml
+    Class Student
+    {
+    +surname: String
+    +name: String
+    +lastname: String
+    +id: Integer
+    +git: String
+    +phone: String
+    +tg: String
+    +mail: String
+    --
+    +initialize(Hash)
+    +show_info()
+    +valid_phone?(): Boolean
+    +valid_mail?(): Boolean
+    +valid_username?(): Boolean
+    +validate?(): Boolean
+    +has_git(): Boolean
+    +has_contact(): Boolean
+    .. Setters ..
+    +set_contacts(Hash)
+    +surname=(String)
+    +name=(String)
+    +lastname=(String)
+    +id=(Integer)
+    +phone=(String)
+    +mail=(String)
+    +tg=(String)
+    +git=(String)
+    .. Getters ..
+    surname(): String
+    name(): String
+    lastname(): String
+    id(): Integer
+    phone(): String
+    mail(): String
+    tg(): String
+    git(): String
+    }
+
+@enduml
