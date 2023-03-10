@@ -14,8 +14,13 @@ class Student
   end
 
   def self.make_student_from_str(str)
-    info = JSON.parse(str)
-    Student.new(surname: info["surname"], name: info["name"], lastname: info["lastname"], id: info["id"], git: info["git"], phone: info["phone"], tg: info["tg"], mail: info["mail"])
+    begin
+      info = JSON.parse(str)
+      raise ArgumentError, "#{str} doesn't contain information about student!" if info.nil?
+      Student.new(surname: info["surname"], name: info["name"], lastname: info["lastname"], id: info["id"], git: info["git"], phone: info["phone"], tg: info["tg"], mail: info["mail"])
+    rescue JSON::ParserError
+      p "Unable to extract data from #{str}"
+    end
   end
 
   def show_info

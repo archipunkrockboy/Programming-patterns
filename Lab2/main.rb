@@ -8,6 +8,5 @@ student3 = Student.new(surname: "surname", name: "name", lastname: "lastname", g
 
 
 a ='{"surname": "surname", "name": "name", "lastname": "lastname", "tg": "@eeee"}'
-b = "asdsadsad"
-s1 = Student.make_student_from_str(a)
-p s1
+b = 'aeder'
+s1 = Student.make_student_from_str(b)
