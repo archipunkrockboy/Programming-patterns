@@ -10,6 +10,11 @@ class Student
     self.git = git
     set_contacts(phone: phone, tg: tg, mail: mail)
   end
+
+  def show_info
+    print "id: #{id}\nsurname: #{surname}\nname: #{name}\nlastname: #{lastname}
+git: #{git}\nphone: #{phone}\ntg: #{tg}\nmail: #{mail}"
+  end
   #валидаторы
   def self.valid_phone?(phone)
     phone.match(/^(\+7|8)((\(\d{3}\))|\d{3})\d{3}(-\d{2}-\d{2}|\d{4})$/)
@@ -30,14 +35,17 @@ class Student
   def has_git?
     !git.nil?
   end
+
   def has_contact?
     !(mail.nil? && tg.nil? && phone.nil?)
   end
+
   def set_contacts(phone: nil, tg: nil, mail: nil)
     self.phone=(phone)
     self.tg=(tg)
     self.mail=(mail)
   end
+
   #сеттеры с проверкой
   def phone=(phone)
     raise ArgumentError, "Invalid phone value: #{phone}" if !phone.nil? && !Student.valid_phone?(phone)
@@ -48,6 +56,7 @@ class Student
     raise ArgumentError, "Invalid mail value: #{mail}" if !mail.nil? && !Student.valid_mail?(mail)
     @mail = mail
   end
+
   def tg=(tg)
     raise ArgumentError, "Invalid telegram value: #{tg}" if !tg.nil? && !Student.valid_username?(tg)
     @tg = tg
