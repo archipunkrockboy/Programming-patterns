@@ -18,42 +18,45 @@ class Student
     mail.match(/^[\w_\.\?!;'"]+@[1-9a-z]+\.(ru|com)$/)
   end
 
-  #возможно стоит в будущем как-то объединить эти две валидации, тк проверка од
-  def self.valid_tg?(tg)
-    tg.match(/^@[a-z]\w*$/)
-  end
-  def self.valid_git?(git)
-    git.match(/^@[a-z]\w*$/)
+  def self.valid_username?(username)
+    username.match(/^@[a-z]\w*$/)
   end
 
-  #сеттеры с проверкой
-  def phone=(phone)
-    raise ArgumentError, "Invalid phone value: #{phone}" if !phone.nil? && !Student.valid_phone?(phone)
-    @phone = phone
+  #есть ли гит и любой контакт для связи?(почта, телеграм или номер телефона)
+  def validate?
+    has_git? && has_contact?
   end
 
-  def tg=(tg)
-    raise ArgumentError, "Invalid telegram value: #{tg}" if !tg.nil? && !Student.valid_tg?(tg)
-    @tg = tg
+  def has_git?
+    !git.nil?
   end
-
-  def mail=(mail)
-    raise ArgumentError, "Invalid mail value: #{mail}" if !mail.nil? && !Student.valid_mail?(mail)
-    @mail = mail
-  end
-
-  def git=(git)
-    raise ArgumentError, "Invalid git value: #{git}" if !git.nil? && !Student.valid_git?(git)
-    @git = git
+  def has_contact?
+    !(mail.nil? && tg.nil? && phone.nil?)
   end
   def set_contacts(phone: nil, tg: nil, mail: nil)
     self.phone=(phone)
     self.tg=(tg)
     self.mail=(mail)
   end
-    #есть ли гит и любой контакт для связи?(почта, телеграм или номер телефона)
-  def validate?
-    !git.nil? && !(mail.nil? && tg.nil? && phone.nil?)
+  #сеттеры с проверкой
+  def phone=(phone)
+    raise ArgumentError, "Invalid phone value: #{phone}" if !phone.nil? && !Student.valid_phone?(phone)
+    @phone = phone
   end
+
+  def mail=(mail)
+    raise ArgumentError, "Invalid mail value: #{mail}" if !mail.nil? && !Student.valid_mail?(mail)
+    @mail = mail
+  end
+  def tg=(tg)
+    raise ArgumentError, "Invalid telegram value: #{tg}" if !tg.nil? && !Student.valid_username?(tg)
+    @tg = tg
+  end
+
+  def git=(git)
+    raise ArgumentError, "Invalid git value: #{git}" if !git.nil? && !Student.valid_username?(git)
+    @git = git
+  end
+
 end
 
