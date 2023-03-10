@@ -1,3 +1,5 @@
+require 'json'
+
 class Student
   attr_accessor :surname, :name, :lastname, :id
   attr_reader :phone, :tg, :mail, :git
@@ -9,6 +11,11 @@ class Student
     self.id = id
     self.git = git
     set_contacts(phone: phone, tg: tg, mail: mail)
+  end
+
+  def self.make_student_from_str(str)
+    info = JSON.parse(str)
+    Student.new(surname: info["surname"], name: info["name"], lastname: info["lastname"], id: info["id"], git: info["git"], phone: info["phone"], tg: info["tg"], mail: info["mail"])
   end
 
   def show_info
