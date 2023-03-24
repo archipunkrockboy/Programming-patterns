@@ -3,15 +3,15 @@ require 'json'
 class Student
   attr_accessor :surname, :name, :lastname, :id
   attr_reader :phone, :tg, :mail, :git
-
   def initialize(surname:, name:, lastname:, id: nil, phone: nil, tg: nil, mail: nil, git: nil)
     self.surname = surname
     self.name = name
     self.lastname = lastname
-    self.id = id
-    self.git = git
-    set_contacts(phone: phone, tg: tg, mail: mail)
+    # self.id = id
+    # self.git = git
+    # set_contacts(phone: phone, tg: tg, mail: mail)
   end
+
 
   def self.make_student_from_str(str)
     begin
@@ -24,8 +24,15 @@ class Student
   end
 
   def show_info
-    print "id: #{id}\nsurname: #{surname}\nname: #{name}\nlastname: #{lastname}
-git: #{git}\nphone: #{phone}\ntg: #{tg}\nmail: #{mail}"
+    info = ""
+    info += "surname: #{surname} "
+    info += "name: #{name} "
+    info += "lastname: #{lastname} "
+    info += "git: #{git} " unless git.nil?
+    info += "phone: #{phone}" unless phone.nil?
+    info += "tg: #{tg}" unless tg.nil?
+    info += "mail: #{mail} " unless mail.nil?
+    info.slice(0..info.size-2)
   end
 
   #валидаторы
@@ -74,10 +81,12 @@ git: #{git}\nphone: #{phone}\ntg: #{tg}\nmail: #{mail}"
     raise ArgumentError, "Invalid name value: #{name}" if name.nil? || !Student.valid_name?(name)
     @name = name
   end
+
   def lastname=(lastname)
     raise ArgumentError, "Invalid lastname value: #{lastname}" if lastname.nil? || !Student.valid_name?(lastname)
     @lastname = lastname
   end
+
   def phone=(phone)
     raise ArgumentError, "Invalid phone value: #{phone}" if !phone.nil? && !Student.valid_phone?(phone)
     @phone = phone
@@ -100,19 +109,21 @@ git: #{git}\nphone: #{phone}\ntg: #{tg}\nmail: #{mail}"
 
   #возвращает строку с фамилией, инициалами и контактом для связи
   def get_info
-    get_surname_and_initials + get_contacts
+    return get_surname_and_initials + " git: #{git}"+ get_contact unless git.nil?
+    get_surname_and_initials + get_contact
   end
-  def get_contacts
-    contacts = ""
-    contacts += "git: #{git} "  if has_git?
-    contacts += "mail: #{mail} " unless mail.nil?
-    contacts += "tg: #{tg} " unless tg.nil?
-    contacts += "phone: #{phone} " unless phone.nil?
-    contacts
+  def get_contact
+    return " phone: #{self.phone}" unless self.phone.nil?
+    return " mail: #{self.mail}" unless self.mail.nil?
+    return " tg: #{self.tg}" unless self.tg.nil?
+    ""
   end
   def get_surname_and_initials
-    "#{surname} #{name[0]}. #{lastname[0]}. "
+    "surname_and_initials: #{surname} #{name[0]}. #{lastname[0]}."
   end
 end
+
+
+
 
 
