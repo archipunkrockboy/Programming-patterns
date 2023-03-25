@@ -7,9 +7,9 @@ class Student
     self.surname = surname
     self.name = name
     self.lastname = lastname
-    # self.id = id
-    # self.git = git
-    # set_contacts(phone: phone, tg: tg, mail: mail)
+    self.id = id
+    self.git = git
+    set_contacts(phone: phone, tg: tg, mail: mail)
   end
 
 
@@ -107,19 +107,23 @@ class Student
     @git = git
   end
 
+
   #возвращает строку с фамилией, инициалами и контактом для связи
   def get_info
-    return get_surname_and_initials + " git: #{git}"+ get_contact unless git.nil?
-    get_surname_and_initials + get_contact
+    info = ''
+    info += '"surname_and_initials": "' + get_surname_and_initials + '"'
+    info += ', "git": "' + git + '"' if has_git?
+    info += ', "contact": "' + get_contact + '"' if has_contact?
+    '{'+info+'}'
   end
   def get_contact
-    return " phone: #{self.phone}" unless self.phone.nil?
-    return " mail: #{self.mail}" unless self.mail.nil?
-    return " tg: #{self.tg}" unless self.tg.nil?
-    ""
+    return self.phone unless self.phone.nil?
+    return self.mail unless self.mail.nil?
+    self.tg unless self.tg.nil?
+
   end
   def get_surname_and_initials
-    "surname_and_initials: #{surname} #{name[0]}. #{lastname[0]}."
+    "#{surname} #{name[0]}. #{lastname[0]}."
   end
 end
 
