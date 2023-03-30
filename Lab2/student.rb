@@ -64,7 +64,17 @@ class Student < Student_short
     end
     '{' + result + '}'
   end
-  
+  def self.read_from_txt(path)
+    result = []
+    begin
+    File.readlines(path).each do |str|
+      result << make_student_from_str(make_json_str(str))
+    end
+    result
+    rescue Errno::ENOENT
+      p "No such file or directory: #{path}"
+    end
+  end
 
   #валидаторы
   def self.valid_phone?(phone)
