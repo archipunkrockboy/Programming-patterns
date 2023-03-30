@@ -18,16 +18,14 @@ class Student < Student_short
     Student.new(surname: args["surname"], name: args["name"], lastname: args["lastname"], id: args["id"], git: args["git"], phone: args["phone"], tg: args["tg"], mail: args["mail"])
   end
 
-  def show_info
+  def to_s
     info = ""
-    info += "surname: #{surname} "
-    info += "name: #{name} "
-    info += "lastname: #{lastname} "
-    info += "git: #{git} " unless git.nil?
-    info += "phone: #{phone}" unless phone.nil?
-    info += "tg: #{tg}" unless tg.nil?
-    info += "mail: #{mail} " unless mail.nil?
-    info.slice(0..info.size-2)
+    info += "surname: #{surname}, name: #{name}, lastname: #{lastname}, "
+    info += "git: #{git}, " unless git.nil?
+    info += "phone: #{phone}, " unless phone.nil?
+    info += "tg: #{tg}, " unless tg.nil?
+    info += "mail: #{mail}, " unless mail.nil?
+    info.slice(0..info.size-3)
   end
 
   #возвращает строку с фамилией, инициалами и контактом для связи
@@ -75,7 +73,16 @@ class Student < Student_short
       p "No such file or directory: #{path}"
     end
   end
-
+  def self.write_to_txt(students, path)
+    begin
+      file = File.open(path, 'w')
+      students.each do |student|
+        file.write("#{student.to_s}\n")
+      end
+    rescue IOError
+      p "Error writing to file: #{path}"
+    end
+  end
   #валидаторы
   def self.valid_phone?(phone)
     phone.match(/^(\+7|8)((\(\d{3}\))|\d{3})\d{3}(-\d{2}-\d{2}|\d{4})$/)
