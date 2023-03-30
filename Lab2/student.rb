@@ -30,6 +30,42 @@ class Student < Student_short
     info.slice(0..info.size-2)
   end
 
+  #возвращает строку с фамилией, инициалами и контактом для связи
+  def get_info
+    info = ''
+    info += '"surname_and_initials": "' + get_surname_and_initials + '"'
+    info += ', "git": "' + git + '"' if has_git?
+    info += ', "contact": "' + get_contact + '"' if has_contact?
+    '{'+info+'}'
+  end
+
+  def get_contact
+    return self.phone unless self.phone.nil?
+    return self.mail unless self.mail.nil?
+    self.tg unless self.tg.nil?
+  end
+
+  def get_surname_and_initials
+    "#{surname} #{name[0]}. #{lastname[0]}."
+  end
+
+  #на вход строка, на выход json-строка
+  def self.make_json_str(str)
+    result = ''
+    str.split(' ').each do |word|
+      if word[-1] == ':'
+        result += '"' + word.slice(0..word.size-2) + '": '
+      else
+        if word[-1] == ','
+          result += '"' + word.slice(0..word.size-2) + '", '
+        else result += '"' + word + '"'
+        end
+      end
+    end
+    '{' + result + '}'
+  end
+  
+
   #валидаторы
   def self.valid_phone?(phone)
     phone.match(/^(\+7|8)((\(\d{3}\))|\d{3})\d{3}(-\d{2}-\d{2}|\d{4})$/)
@@ -48,11 +84,6 @@ class Student < Student_short
     name.match(/^[a-zA-Z]+/)
   end
 
-  #есть ли гит и любой контакт для связи?(почта, телеграм или номер телефона)
-  def validate?
-    has_git? && has_contact?
-  end
-
   def has_contact?
     !mail.nil? || !tg.nil? || !phone.nil?
   end
@@ -64,7 +95,6 @@ class Student < Student_short
   end
 
   #сеттеры с проверкой
-
   def surname=(surname)
     raise ArgumentError, "Invalid surname value: #{surname}" if surname.nil? || !Student.valid_name?(surname)
     @surname = surname
@@ -100,24 +130,6 @@ class Student < Student_short
     @git = git
   end
 
-
-  #возвращает строку с фамилией, инициалами и контактом для связи
-  def get_info
-    info = ''
-    info += '"surname_and_initials": "' + get_surname_and_initials + '"'
-    info += ', "git": "' + git + '"' if has_git?
-    info += ', "contact": "' + get_contact + '"' if has_contact?
-    '{'+info+'}'
-  end
-
-  def get_contact
-    return self.phone unless self.phone.nil?
-    return self.mail unless self.mail.nil?
-    self.tg unless self.tg.nil?
-  end
-  def get_surname_and_initials
-    "#{surname} #{name[0]}. #{lastname[0]}."
-  end
 end
 
 
