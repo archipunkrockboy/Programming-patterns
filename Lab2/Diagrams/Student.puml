@@ -1,5 +1,20 @@
 @startuml
-    Class Student
+    Class Student_short
+    {
+    +id: Integer
+    +surname_and_initials: String
+    +git: String
+    +contact: String
+    --
+    +initialize(Integer, String)
+    +initialize_from_student(Student)
+    +get_hash(String): Hash
+    +validate?: Boolean
+    +has_contact?: Boolean
+    +has_git?: Boolean
+    }
+
+    Class Student extends Student_short
     {
     +surname: String
     +name: String
@@ -11,12 +26,14 @@
     +mail: String
     --
     +initialize(Hash)
+    +make_student_from_str(str)
     +show_info()
+    +get_info(): String
+    +get_contact(): String
+    +get_surname_and_initials(): String
     +valid_phone?(): Boolean
     +valid_mail?(): Boolean
     +valid_username?(): Boolean
-    +validate?(): Boolean
-    +has_git(): Boolean
     +has_contact(): Boolean
     .. Setters ..
     +set_contacts(Hash)
