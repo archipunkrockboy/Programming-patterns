@@ -4,12 +4,11 @@ class Student < Student_short
   attr_accessor :surname, :name, :lastname, :id
   attr_reader :phone, :tg, :mail, :git
 
+
   def initialize(surname:, name:, lastname:, id: nil, phone: nil, tg: nil, mail: nil, git: nil)
     self.surname = surname
     self.name = name
     self.lastname = lastname
-    self.id = id
-    self.git = git
     set_contacts(phone: phone, tg: tg, mail: mail)
   end
 
@@ -25,7 +24,8 @@ class Student < Student_short
     info += "phone: #{phone}, " unless phone.nil?
     info += "tg: #{tg}, " unless tg.nil?
     info += "mail: #{mail}, " unless mail.nil?
-    info.slice(0..info.size-3)
+    info = info.slice(0..info.size-3)
+    info
   end
 
   #возвращает строку с фамилией, инициалами и контактом для связи
