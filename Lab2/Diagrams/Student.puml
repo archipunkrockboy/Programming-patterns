@@ -27,10 +27,13 @@
     --
     +initialize(Hash)
     +make_student_from_str(str)
-    +show_info()
+    +to_s()
     +get_info(): String
     +get_contact(): String
     +get_surname_and_initials(): String
+    +make_json_str(String): String
+    +read_from_txt(String): Array
+    +write_to_txt(Array, String)
     +valid_phone?(): Boolean
     +valid_mail?(): Boolean
     +valid_username?(): Boolean
@@ -46,14 +49,22 @@
     +tg=(String)
     +git=(String)
     .. Getters ..
-    surname(): String
-    name(): String
-    lastname(): String
-    id(): Integer
-    phone(): String
-    mail(): String
-    tg(): String
-    git(): String
+    +surname(): String
+    +name(): String
+    +lastname(): String
+    +id(): Integer
+    +phone(): String
+    +mail(): String
+    +tg(): String
+    +git(): String
     }
-
+    class Data_table
+    {
+    +table: Array
+    __
+    +initialize(Array)
+    +get_value(Integer, Integer)
+    +rows_count: Integer
+    +columns_count(String): Integer
+    }
 @enduml
