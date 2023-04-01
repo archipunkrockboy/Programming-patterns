@@ -18,8 +18,7 @@ class Student < Student_short
   end
 
   def to_s
-    info = ""
-    info += "surname: #{surname}, name: #{name}, lastname: #{lastname}, "
+    info = "surname: #{surname}, name: #{name}, lastname: #{lastname}, "
     info += "git: #{git}, " unless git.nil?
     info += "phone: #{phone}, " unless phone.nil?
     info += "tg: #{tg}, " unless tg.nil?
@@ -31,7 +30,7 @@ class Student < Student_short
   #возвращает строку с фамилией, инициалами и контактом для связи
   def get_info
     info = ''
-    info += '"surname_and_initials": "' + get_surname_and_initials + '"'
+    info += '"surname_and_initials": "' + "#{surname} #{name[0]}. #{lastname[0]}." + '"'
     info += ', "git": "' + git + '"' if has_git?
     info += ', "contact": "' + get_contact + '"' if has_contact?
     '{'+info+'}'
@@ -43,9 +42,7 @@ class Student < Student_short
     self.tg unless self.tg.nil?
   end
 
-  def get_surname_and_initials
-    "#{surname} #{name[0]}. #{lastname[0]}."
-  end
+
 
   #на вход строка, на выход json-строка
   def self.make_json_str(str)
