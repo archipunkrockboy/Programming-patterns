@@ -12,6 +12,11 @@
     +validate?: Boolean
     +has_contact?: Boolean
     +has_git?: Boolean
+    ..Getters..
+    +surname_and_initials(): String
+    +id(): Integer
+    +git(): String
+    +contact(): String
     }
 
     Class Student extends Student_short
@@ -19,8 +24,6 @@
     +surname: String
     +name: String
     +lastname: String
-    +id: Integer
-    +git: String
     +phone: String
     +tg: String
     +mail: String
@@ -29,25 +32,24 @@
     +make_student_from_str(str)
     +to_s()
     +get_info(): String
-    +get_contact(): String
-    +get_surname_and_initials(): String
-    +make_json_str(String): String
-    +read_from_txt(String): Array
-    +write_to_txt(Array, String)
-    +valid_phone?(): Boolean
-    +valid_mail?(): Boolean
-    +valid_username?(): Boolean
-    +has_contact(): Boolean
+
+    +{static}make_json_str(String): String
+    +{static}read_from_txt(String): Array
+    +{static}write_to_txt(Array, String)
+    +{static}valid_phone?(): Boolean
+    +{static}valid_mail?(): Boolean
+    +{static}valid_username?(): Boolean
+    -get_contact(): String
     .. Setters ..
     +set_contacts(Hash)
     +surname=(String)
     +name=(String)
     +lastname=(String)
     +id=(Integer)
-    +phone=(String)
-    +mail=(String)
-    +tg=(String)
     +git=(String)
+    -mail=(String)
+    -tg=(String)
+    -phone=(String)
     .. Getters ..
     +surname(): String
     +name(): String
@@ -66,5 +68,11 @@
     +get_value(Integer, Integer)
     +rows_count: Integer
     +columns_count(String): Integer
+    }
+    class Data_list
+    {
+    +initialize(Array)
+    +select(Integer)
+    +get_selected: Array
     }
 @enduml

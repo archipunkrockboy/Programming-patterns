@@ -125,7 +125,7 @@ class Student < Student_short
     self.tg unless self.tg.nil?
     nil
   end
-  
+
   def mail=(mail)
     raise ArgumentError, "Invalid mail value: #{mail}" if !mail.nil? && !Student.valid_mail?(mail)
     @mail = mail
