@@ -36,14 +36,6 @@ class Student < Student_short
     '{'+info+'}'
   end
 
-  def get_contact
-    return self.phone unless self.phone.nil?
-    return self.mail unless self.mail.nil?
-    self.tg unless self.tg.nil?
-  end
-
-
-
   #на вход строка, на выход json-строка
   def self.make_json_str(str)
     result = ''
@@ -97,7 +89,7 @@ class Student < Student_short
     raise ArgumentError, "The argument must be String, not #{name.class}!" unless name.is_a?(String)
     name.match(/^[a-zA-Z]+/)
   end
-  
+
   def set_contacts(phone: nil, tg: nil, mail: nil)
     self.phone=(phone)
     self.tg=(tg)
@@ -121,11 +113,19 @@ class Student < Student_short
     @lastname = lastname
   end
 
-  def phone=(phone)
-    raise ArgumentError, "Invalid phone value: #{phone}" if !phone.nil? && !Student.valid_phone?(phone)
-    @phone = phone
+  def git=(git)
+    raise ArgumentError, "Invalid git value: #{git}" if !git.nil? && !Student.valid_username?(git)
+    @git = git
   end
 
+  private
+  def get_contact
+    return self.phone unless self.phone.nil?
+    return self.mail unless self.mail.nil?
+    self.tg unless self.tg.nil?
+    nil
+  end
+  
   def mail=(mail)
     raise ArgumentError, "Invalid mail value: #{mail}" if !mail.nil? && !Student.valid_mail?(mail)
     @mail = mail
@@ -136,11 +136,10 @@ class Student < Student_short
     @tg = tg
   end
 
-  def git=(git)
-    raise ArgumentError, "Invalid git value: #{git}" if !git.nil? && !Student.valid_username?(git)
-    @git = git
+  def phone=(phone)
+    raise ArgumentError, "Invalid phone value: #{phone}" if !phone.nil? && !Student.valid_phone?(phone)
+    @phone = phone
   end
-
 end
 
 
