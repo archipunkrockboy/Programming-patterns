@@ -97,15 +97,12 @@ class Student < Student_short
     raise ArgumentError, "The argument must be String, not #{name.class}!" unless name.is_a?(String)
     name.match(/^[a-zA-Z]+/)
   end
-
-  def has_contact?
-    !mail.nil? || !tg.nil? || !phone.nil?
-  end
-
+  
   def set_contacts(phone: nil, tg: nil, mail: nil)
     self.phone=(phone)
     self.tg=(tg)
     self.mail=(mail)
+    @contact = get_contact
   end
 
   #сеттеры с проверкой
