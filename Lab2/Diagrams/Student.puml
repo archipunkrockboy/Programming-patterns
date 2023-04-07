@@ -6,12 +6,12 @@
     +git: String
     +contact: String
     --
-    +initialize(Integer, String)
-    +initialize_from_student(Student)
-    +get_hash(String): Hash
-    +validate?: Boolean
-    +has_contact?: Boolean
-    +has_git?: Boolean
+    +{static}initialize(Integer, String)
+    +{static}initialize_from_student(Student)
+    +{static}get_hash(String): Hash
+    +validate?(): Boolean
+    +has_contact?(): Boolean
+    +has_git?(): Boolean
     ..Getters..
     +surname_and_initials(): String
     +id(): Integer
@@ -28,8 +28,8 @@
     +tg: String
     +mail: String
     --
-    +initialize(Hash)
-    +make_student_from_str(str)
+    +{static}initialize(Hash)
+    +{static}make_student_from_str(str)
     +to_s()
     +get_info(): String
 
@@ -64,15 +64,34 @@
     {
     +table: Array
     __
-    +initialize(Array)
+    +{static}initialize(Array)
     +get_value(Integer, Integer)
-    +rows_count: Integer
+    +rows_count(): Integer
     +columns_count(String): Integer
+    ..Getters..
+    -table()
     }
     class Data_list
     {
-    +initialize(Array)
+    +list: Array
+    +selected_items: Array
+    --
+    +{static}initialize(Array)
     +select(Integer)
-    +get_selected: Array
+    +get_data(): Data_table
+    #fill_row(Object): Array
+    #get_names(): Array
+    ..Setters..
+    +list=(Array)
+    ..Getters..
+    +list(): Array
+    +selected_items(): Array
+     }
+    class Data_list_student_short extends Data_list
+    {
+    __
+    +{static}initialize(list)
+    +get_names(): Array
+    #fill_row(Object): Array
     }
 @enduml
