@@ -7,17 +7,11 @@ class Data_list_student_short < Data_list
     super
   end
   def get_names
-    ["surname and initials", "git", "contact"]
-  end
-  def get_data
-    result = []
-    id = 0
-    list.each do |sh|
-      result << [id, sh.surname_and_initials, sh.git, sh.contact]
-      id += 1
-    end
-    Data_table.new(result)
+    %w[Номер ФИО Гит Контакт]
   end
 
-
+  protected
+  def fill_row(object)
+    [object.surname_and_initials, object.git, object.contact]
+  end
 end
