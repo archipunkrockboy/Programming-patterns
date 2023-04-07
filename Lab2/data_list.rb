@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class Data_list
-  attr_accessor :list, :selected_items
+  attr_reader :list, :selected_items
   def initialize(list)
     self.list = list #list.sort
     @selected_items = []
@@ -11,13 +11,6 @@ class Data_list
     selected_items.append(list[number].id)
   end
 
-  def get_selected
-    result = []
-    list.map{|x| result << x if selected_items.include?(x)}
-    result
-  end
-
-  #возвращает список значений аттрибутов, кроме id, необходимо переопределять в наследниках
   def get_data
     result = []
     index = 1
@@ -31,7 +24,9 @@ class Data_list
     raise ArgumentError, "The argument must be Array, not #{list.class}!" unless list.is_a?(Array)
     @list = list
   end
+
   protected
+  #возвращает список значений аттрибутов, кроме id, необходимо переопределять в наследниках
   def fill_row(object)
     []
   end

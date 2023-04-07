@@ -6,31 +6,21 @@ class Data_table
 
   def get_value(i, j)
     begin
-      @table[i][j]
+      table[i][j]
     rescue NoMethodError
       p "There is no element with index [#{i}, #{j}]"
     end
   end
 
   def rows_count
-    @table.size
+    table.size
   end
 
-  def columns_count(mod='max')
-    if mod == 'max'
-      count = 0
-      @table.each do |row|
-        count = row.size if row.size > count
-      end
-      return count
-    end
-    if mod == 'min'
-      count = @table[0].size
-      @table.each do |row|
-        count = row.size if row.size < count
-      end
-      count
-    end
-    raise ArgumentError, "The argument must have the value 'max' or 'min'"
+  def columns_count
+    raise NoMethodError, "The table is empty!" if table.empty?
+    table[0].size
   end
+
+  private
+  attr_reader :table
 end
