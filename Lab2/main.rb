@@ -1,18 +1,20 @@
 require "./student"
 require "./student_short"
 require 'json'
-#student1 = Student.new("Месси", "Лионель", "Барселонович", {mail: "hozyainreala@mail.ru"})
-#student2 = Student.new("Криштиану", "Роналду", "Альнасрович", {phone: "+79188374645"})
-# student3 = Student.new(surname: "surname", name: "name", lastname: "lastname", git: "@git", tg:"@tg")
+require './data_table'
+require './data_list'
+require './data_list_student_short'
 
+s1 = Student.new(name: "Sergey", surname: "Sergeev", lastname:"Sergeevich", id: 0, git: "@gitasdas")
+s2 = Student.new(name: "Petr", surname: "Sergeev", lastname:"Sergeevich", id: 1, git: "@gitadasd")
+s3 = Student.new(name: "Sergey", surname: "Petrov", lastname:"Sergeevich", id: 2, git: "@gitdasd")
+s4 = Student.new(name: "Sergey", surname: "Sergeev", lastname:"Petrovich", id: 3, git: "@gisadsat")
+s5 = Student.new(name: "Petr", surname: "Sergeev", lastname:"Petrovich", id: 4, git: "@giereet")
+sh = []
+[s1, s2, s3, s4, s5].each do|s|
+  sh.append(Student_short.initialize_from_student(s))
+end
 
-
-s2 = Student.new(surname: "surname", name: "name", lastname: "lastname", git: "@git", phone: "+79180887978", id: 5)
-sh = Student_short.initialize_from_student(s2)
-
-p sh
-
-
-
-
-
+dlsh = Data_list_student_short.new(sh)
+p dlsh.get_names
+p dlsh.get_data
