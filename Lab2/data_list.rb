@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 
 class Data_list
-  attr_reader :selected_items
+  attr_accessor :list, :selected_items
   def initialize(list)
-    @list = list #list.sort
+    self.list = list #list.sort
     @selected_items = []
   end
 
@@ -27,7 +27,10 @@ class Data_list
     end
     Data_table.new(result)
   end
-
+  def list=(list)
+    raise ArgumentError, "The argument must be Array, not #{list.class}!" unless list.is_a?(Array)
+    @list = list
+  end
   protected
   def fill_row(object)
     []
@@ -35,7 +38,5 @@ class Data_list
   def get_names
     []
   end
-  
-  attr_reader :list
-  attr_accessor :selected_items
+
 end
