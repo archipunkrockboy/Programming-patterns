@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class Data_list
-  attr_reader :list, :selected_items
+  attr_reader :selected_items
   def initialize(list)
     self.list = list #list.sort
     @selected_items = []
@@ -11,6 +11,9 @@ class Data_list
     selected_items.append(list[number].id)
   end
 
+  def delete_selected
+    @selected_items = []
+  end
   def get_data
     result = []
     index = 1
@@ -34,4 +37,6 @@ class Data_list
     []
   end
 
+  private
+  attr_reader :list
 end

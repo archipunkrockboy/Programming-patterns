@@ -4,11 +4,12 @@ class Student < Student_short
   attr_accessor :surname, :name, :lastname, :id
   attr_reader :phone, :tg, :mail, :git
 
-
   def initialize(surname:, name:, lastname:, id: nil, phone: nil, tg: nil, mail: nil, git: nil)
     self.surname = surname
     self.name = name
     self.lastname = lastname
+    self.git = git
+    self.id = id
     set_contacts(phone: phone, tg: tg, mail: mail)
   end
 
@@ -35,43 +36,7 @@ class Student < Student_short
     info += ', "contact": "' + get_contact + '"' if has_contact?
     '{'+info+'}'
   end
-
-  #на вход строка, на выход json-строка
-  def self.make_json_str(str)
-    result = ''
-    str.split(' ').each do |word|
-      if word[-1] == ':'
-        result += '"' + word.slice(0..word.size-2) + '": '
-      else
-        if word[-1] == ','
-          result += '"' + word.slice(0..word.size-2) + '", '
-        else result += '"' + word + '"'
-        end
-      end
-    end
-    '{' + result + '}'
-  end
-  def self.read_from_txt(path)
-    result = []
-    begin
-    File.readlines(path).each do |str|
-      result << make_student_from_str(make_json_str(str))
-    end
-    result
-    rescue Errno::ENOENT
-      p "No such file or directory: #{path}"
-    end
-  end
-  def self.write_to_txt(students, path)
-    begin
-      file = File.open(path, 'w')
-      students.each do |student|
-        file.write("#{student.to_s}\n")
-      end
-    rescue IOError
-      p "Error writing to file: #{path}"
-    end
-  end
+  
   #валидаторы
   def self.valid_phone?(phone)
     phone.match(/^(\+7|8)((\(\d{3}\))|\d{3})\d{3}(-\d{2}-\d{2}|\d{4})$/)
