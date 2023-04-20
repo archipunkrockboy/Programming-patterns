@@ -14,15 +14,15 @@ s3 = Student.new(name: "Sergey", surname: "Petrov", lastname:"Sergeevich", id: 2
 s4 = Student.new(name: "Sergey", surname: "Sergeev", lastname:"Petrovich", id: 3, git: "@gisadsat")
 s5 = Student.new(name: "Petr", surname: "Sergeev", lastname:"Petrovich", id: 4, git: "@giereet")
 
-a = Student_list.new
-[s1, s2, s3, s4 ,s5].each do |s|
-  a.list << s
-end
-a.read_from('input.json')
-a.read_from('input.yaml')
-a.read_from('input.txt')
+sl = Student_list.new(Student_list_json.new)
+sl.read_from('input.json')
+sl.write_to('output.json')
 
-a.write_to('output.json')
-a.write_to('output.yaml')
-a.write_to('output.txt')
+sl = Student_list.new(Student_list_yaml.new)
+sl.read_from('input.yaml')
+sl.write_to('output.yaml')
+
+sl = Student_list.new(Student_list_txt.new)
+sl.read_from('input.txt')
+sl.write_to('output.txt')
 

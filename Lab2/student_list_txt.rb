@@ -6,20 +6,23 @@ require './student_short'
 require './student_list'
 class Student_list_txt < Student_list_strategy
 
-  def read_from(path, student_list)
-    File.readlines(path).each do |str|
-      student_list.list << Student.make_student_from_str(make_json_str(str))
-    end
-  end
-
-  def write_to(path, student_list)
-    file = File.open(path, 'w')
-    student_list.list.each do |student|
-      file.write("#{student.to_s}\n")
-    end
-
-  end
   protected
+  def parse(path)
+    students = []
+    File.read(path).split(/\n/).each do |student|
+      students << JSON.parse(make_json_str(student))
+    end
+    students
+  end
+
+  def get_data(list)
+    result = ""
+    list.each do |student|
+      result += student.to_s + '\n'
+    end
+    result
+  end
+
   #на вход строка, на выход json-строка
   def make_json_str(str)
     result = ''
