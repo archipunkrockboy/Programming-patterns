@@ -1,14 +1,14 @@
 # frozen_string_literal: true
 require './student_list_strategy'
 class Student_list
-  attr_accessor :list, :strategy
-  def initialize
+  attr_accessor :list
+  def initialize(strategy)
     self.list = []
-    self.strategy = Student_list_strategy.new
+    self.strategy = strategy
   end
 
   def read_from(path)
-    self.list = strategy.read_from(path, self)
+    strategy.read_from(path, self)
   end
 
   def write_to(path)
@@ -61,4 +61,6 @@ class Student_list
     list.map{|student| new_id = student.id if student.id > new_id}
     new_id + 1
   end
+  private
+  attr_accessor :strategy
 end

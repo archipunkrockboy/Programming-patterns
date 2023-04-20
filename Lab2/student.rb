@@ -18,6 +18,11 @@ class Student < Student_short
     Student.new(surname: args["surname"], name: args["name"], lastname: args["lastname"], id: args["id"], git: args["git"], phone: args["phone"], tg: args["tg"], mail: args["mail"])
   end
 
+  def self.from_hash(hash)
+    new(surname: hash["surname"], name: hash["name"], lastname: hash["lastname"], id: hash["id"], git: hash["git"], phone: hash["phone"], tg: hash["tg"], mail: hash["mail"])
+  end
+
+
   def to_s
     info = "surname: #{surname}, name: #{name}, lastname: #{lastname}, "
     info += "git: #{git}, " unless git.nil?
@@ -28,6 +33,9 @@ class Student < Student_short
     info
   end
 
+  def to_h
+    {"surname": surname, "name": name, "lastname": lastname, "git": git, "id": id, "phone": phone, "tg": tg, "mail": mail, "surname_and_initials": surname_and_initials, "contact": contact}
+  end
   #возвращает строку с фамилией, инициалами и контактом для связи
   def get_info
     info = ''
@@ -36,7 +44,7 @@ class Student < Student_short
     info += ', "contact": "' + get_contact + '"' if has_contact?
     '{'+info+'}'
   end
-  
+
   #валидаторы
   def self.valid_phone?(phone)
     phone.match(/^(\+7|8)((\(\d{3}\))|\d{3})\d{3}(-\d{2}-\d{2}|\d{4})$/)
