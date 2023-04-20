@@ -29,13 +29,10 @@
     +mail: String
     --
     +{static}initialize(Hash)
-    +{static}make_student_from_str(str)
+    +{static}make_student_from_str(String)
+    +{static}from_hash(Hash)
     +to_s()
     +get_info(): String
-
-    +{static}make_json_str(String): String
-    +{static}read_from_txt(String): Array
-    +{static}write_to_txt(Array, String)
     +{static}valid_phone?(): Boolean
     +{static}valid_mail?(): Boolean
     +{static}valid_username?(): Boolean
@@ -84,7 +81,7 @@
     ..Setters..
     +list=(Array)
     ..Getters..
-    +list(): Array
+    -list(): Array
     +selected_items(): Array
      }
     class Data_list_student_short extends Data_list
@@ -94,4 +91,54 @@
     +get_names(): Array
     #fill_row(Object): Array
     }
+    class Student_list
+    {
+    +list: Array
+    -strategy: Object
+    --
+    +{static}initialize(Object)
+    +read_from(String)
+    +write_to(String)
+    +get_student_short_list(Integer, Data_list): Data_list
+    +get_student_by_id(Integer): Student
+    +update_student_by_id(Integer)
+    +insert_student(Student)
+    +delete_student_by_id(Integer)
+    +sort_by()
+    +get_student_count(): Integer
+    +get_id(): Integer
+    ..Setters..
+    -strategy=()
+    ..Getters..
+    +list()
+    -strategy()
+    }
+    class Student_list_strategy
+    {
+    --
+    +read_from(String, Student_list)
+    +write_to(String, Student_list)
+    #parse(String)
+    #get_data(String)
+    }
+    class Student_list_txt extends Student_list_strategy
+    {
+    --
+    #parse(String): Array
+    #get_data(String): String
+    #make_json_str(String): String
+    }
+    class Student_list_json extends Student_list_strategy
+    {
+    --
+    #parse(String): Array
+    #get_data(Array): Array
+    }
+    class Student_list_yaml extends Student_list_strategy
+    {
+    --
+    #parse(String): Array
+    #get_data(Array): Array
+    }
+    Student_list_strategy --* Student_list
 @enduml
