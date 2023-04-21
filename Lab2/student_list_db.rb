@@ -12,4 +12,10 @@ class Student_list_db
   def get_student_by_id(id)
     Student.from_hash((db.execute "SELECT * FROM Students WHERE id == ?", id)[0])
   end
+
+  def delete_student_by_id(id)
+    db.execute "DELETE FROM Students WHERE id == ?", id
+  end
+
+  
 end
