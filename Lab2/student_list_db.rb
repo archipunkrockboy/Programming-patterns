@@ -17,5 +17,7 @@ class Student_list_db
     db.execute "DELETE FROM Students WHERE id == ?", id
   end
 
-  
+  def get_student_count
+    db.execute "SELECT COUNT(*) FROM Students"
+  end
 end
