@@ -1,0 +1,17 @@
+---
+- surname: "Manukyan"
+  name: "Artur"
+  lastname: "Vaginakovich"
+  tg: "@tgtgtgtg"
+  id: 1
+- surname: "Surname"
+  name: "Name"
+  lastname: "Lastname"
+  tg: "@auuuuu"
+  id: 2
+- surname: "Surname"
+  name: "Nameee"
+  lastname: "Lastnameee"
+  tg: "@auuuuure"
+  id: 2
+...

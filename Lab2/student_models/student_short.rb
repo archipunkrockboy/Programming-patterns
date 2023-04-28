@@ -13,6 +13,7 @@ class Student_short
     Student_short.new(student.id, student.get_info)
   end
 
+  #на вход json-строка, на выход hash
   def self.get_hash(str)
     begin
       hash = JSON.parse(str)

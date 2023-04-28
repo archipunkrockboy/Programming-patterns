@@ -1,5 +1,5 @@
 require 'json'
-require_relative 'student_short'
+require_relative '../dent_short'
 class Student < Student_short
   attr_accessor :surname, :name, :lastname, :id
   attr_reader :phone, :tg, :mail, :git
@@ -21,7 +21,6 @@ class Student < Student_short
   def self.from_hash(hash)
     new(surname: hash["surname"], name: hash["name"], lastname: hash["lastname"], id: hash["id"], git: hash["git"], phone: hash["phone"], tg: hash["tg"], mail: hash["mail"])
   end
-
 
   def to_s
     info = "surname: #{surname}, name: #{name}, lastname: #{lastname}, "
@@ -60,7 +59,8 @@ class Student < Student_short
 
   def self.valid_name?(name)
     raise ArgumentError, "The argument must be String, not #{name.class}!" unless name.is_a?(String)
-    name.match(/^[a-zA-Z]+/)
+    # name.match(/^[a-zA-Z]+/)
+    true
   end
 
   def set_contacts(phone: nil, tg: nil, mail: nil)

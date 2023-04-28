@@ -12,6 +12,7 @@ class Student_list_strategy
     File.write(path, get_data(student_list.list))
   end
 
+  #необходимо переопределять в наследниках
   protected
   def parse(path)
   end

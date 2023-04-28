@@ -1,0 +1,31 @@
+---
+- :surname: Manukyan
+  :name: Artur
+  :lastname: Vaginakovich
+  :git:
+  :id: 1
+  :phone:
+  :tg: "@tgtgtgtg"
+  :mail:
+  :surname_and_initials:
+  :contact:
+- :surname: Surname
+  :name: Name
+  :lastname: Lastname
+  :git:
+  :id: 2
+  :phone:
+  :tg: "@auuuuu"
+  :mail:
+  :surname_and_initials:
+  :contact:
+- :surname: Surname
+  :name: Nameee
+  :lastname: Lastnameee
+  :git:
+  :id: 2
+  :phone:
+  :tg: "@auuuuure"
+  :mail:
+  :surname_and_initials:
+  :contact:

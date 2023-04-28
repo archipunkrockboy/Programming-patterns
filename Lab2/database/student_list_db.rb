@@ -50,7 +50,7 @@ class Student_list_db
 
 
   private
-  attr_accessor :db, :instance
+  attr_accessor :db
   def set_parameters(db)
     self.db = SQLite3::Database.open db
     self.db.results_as_hash = true

@@ -1,0 +1,3 @@
+surname: Manukyan, name: Artur, lastname: Vaginakovich
+surname: Manukyan1, name: Manukyan, lastname: Vaginakovich, tg: @tg31312313123
+surname: Manukyan1, name: Artur3, lastname: Vaginakovich, tg: @tg1112

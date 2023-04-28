@@ -89,7 +89,7 @@
     __
     +{static}initialize(list)
     +get_names(): Array
-    #fill_row(Object): Array
+    #fill_row(Student_short): Array
     }
     class Student_list
     {
@@ -140,5 +140,26 @@
     #parse(String): Array
     #get_data(Array): Array
     }
+    class Student_list_db
+    {
+    --
+    -{static}initialize(String)
+    +{static}get_instance(String): Student_list_db
+    +get_student_by_id(Integer): Student
+    +delete_student_by_id(Integer)
+    +insert_student(Student)
+    +update_student_by_id(Integer, Student)
+    +get_student_count(): Integer
+    +request(String)
+    -set_parameters(String)
+    -new_id(): Integer
+    ..Setters..
+    -db=()
+    ..Getters..
+    -db()
+    }
     Student_list_strategy --* Student_list
+    Data_list_student_short o-- Student_short
+    Data_list <-- Student_list
+    Student <-- Student_list_db
 @enduml
