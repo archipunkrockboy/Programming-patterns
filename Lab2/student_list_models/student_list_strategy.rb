@@ -1,7 +1,5 @@
-# frozen_string_literal: true
-require './student'
+require_relative '../student_models/student'
 class Student_list_strategy
-  private_class_method :new
   def read_from(path, student_list)
     students = parse(path)
     students.each do |student|
@@ -17,5 +15,8 @@ class Student_list_strategy
   def parse(path)
   end
   def get_data(list)
+  end
+
+  def initialize
   end
 end

@@ -1,9 +1,6 @@
 # frozen_string_literal: true
 require "json"
-require './data_list'
-require './student'
-require './student_short'
-require './student_list'
+require_relative './student_list'
 class Student_list_txt < Student_list_strategy
 
   protected

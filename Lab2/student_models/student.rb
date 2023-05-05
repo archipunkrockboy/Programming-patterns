@@ -1,5 +1,5 @@
 require 'json'
-require_relative '../dent_short'
+require_relative 'student_short'
 class Student < Student_short
   attr_accessor :surname, :name, :lastname, :id
   attr_reader :phone, :tg, :mail, :git

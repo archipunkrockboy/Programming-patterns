@@ -1,7 +1,6 @@
-# frozen_string_literal: true
-require './student_list_strategy'
+require_relative 'student_list_strategy'
 class Student_list
-  attr_reader :list
+  attr_accessor :list
   def initialize(strategy)
     self.list = []
     self.strategy = strategy

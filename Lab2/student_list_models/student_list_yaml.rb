@@ -1,5 +1,5 @@
 # frozen_string_literal: true
-require './student_list'
+require_relative './student_list'
 class Student_list_yaml < Student_list_strategy
 
   protected

@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 class Data_list
   attr_reader :selected_items
   def initialize(list)

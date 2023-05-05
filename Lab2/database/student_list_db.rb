@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 require 'sqlite3'
-require './student'
+require '../student_models/student'
 class Student_list_db
 
   private_class_method :new
