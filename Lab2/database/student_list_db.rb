@@ -1,63 +1,36 @@
 # frozen_string_literal: true
 require 'sqlite3'
 require '../student_models/student'
+require_relative './database_driver'
 class Student_list_db
 
   private_class_method :new
-  @@instance = nil
+  attr_accessor :db_driver
 
-  def initialize(database)
-    self.set_parameters(database)
-  end
-
-  def self.get_instance(database: "University.sqlite")
-    if @@instance.nil? then
-      @@instance = new(database)
-    else
-      self.set_parameters(database)
-    end
-    @@instance
+  def initialize(database: "University.sqlite", results_as_hash: true)
+    self.db_driver = Database_driver.get_instance(database, results_as_hash)
   end
 
   def get_student_by_id(id)
-    Student.from_hash((db.execute "SELECT * FROM Students WHERE id == ?", id)[0])
+    Student.from_hash(db_driver.get_student_by_id(id))
   end
 
   def delete_student_by_id(id)
-    db.execute "DELETE FROM Students WHERE id == ?", id
+    db_driver.delete_student_by_id(id)
   end
 
   def insert_student(student)
-    db.execute "INSERT INTO Students (id, surname, name, lastname, phone, tg, mail, git)
-                VALUES (?, ?, ?, ?, ?, ?, ?, ?)", new_id, student.surname, student.name, student.lastname,
-                student.phone, student.tg, student.mail, student.git
+    db_driver.insert_student(student)
   end
   def update_student_by_id(id, student)
-    db.execute "UPDATE Students
-                SET surname = ?, name = ?, lastname = ?,
-                    phone   = ?, tg   = ?, mail     = ?,
-                    git = ?
-                WHERE id == ?", student.surname, student.name, student.lastname,
-                                student.phone, student.tg ,student.mail, student.git, id
+    db_driver.update_student_by_id(id, student)
   end
   def get_student_count
-    (db.execute "SELECT COUNT(*) as count FROM Students")[0]["count"]
+    db_driver.get_student_count
   end
 
   def request(request)
-    db.execute request
-  end
-
-
-  private
-  attr_accessor :db
-  def set_parameters(db)
-    self.db = SQLite3::Database.open db
-    self.db.results_as_hash = true
-  end
-
-  def new_id
-    (db.execute "SELECT MAX(id) as max FROM Students")[0]["max"] + 1
+    db_driver.request(request)
   end
 
 end
