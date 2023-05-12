@@ -2,8 +2,8 @@
 require 'fox16'
 include Fox
 class Filter_area < FXVerticalFrame
-  def initialize(parent, *args)
-    super(parent, *args)
+  def initialize(parent, *args, &blc)
+    super(parent, *args, &blc)
     text_field_of_surname_and_init
     make_filter("Git")
     make_filter("Telegram")
@@ -19,7 +19,7 @@ class Filter_area < FXVerticalFrame
   end
 
   def make_filter(parameter)
-    frame = FXVerticalFrame.new(self, :padTop =>10, :padBottom => 10)
+    frame = FXVerticalFrame.new(self, :padTop =>10, :padBottom => 10, :vSpacing => 10)
     frame.backColor = "red"
     FXLabel.new(frame, parameter)
 

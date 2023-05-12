@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 require 'fox16'
-require_relative  './page.rb'
 require_relative './filter_area'
+require_relative './table_area'
 include Fox
 class Main_window < FXMainWindow
   attr_reader :splitter
@@ -10,6 +10,7 @@ class Main_window < FXMainWindow
     build_menu_bar
     @splitter = FXSplitter.new(self, opts: SPLITTER_HORIZONTAL|LAYOUT_FILL)
     Filter_area.new(splitter)
+    Table_area.new(splitter)
   end
 
   def build_menu_bar
