@@ -1,10 +1,14 @@
 # frozen_string_literal: true
 require 'fox16'
+require_relative '../student_models/student'
+require_relative '../student_models/student_short'
 include Fox
 class Table_area < FXVerticalFrame
+  attr_reader :table
   def initialize(p, *args, &blk)
     super
-    build_table
+    @table = build_table
+    test_filling
     make_buttons
   end
 
@@ -18,6 +22,8 @@ class Table_area < FXVerticalFrame
     table.setColumnText(3,'phone')
     table.setColumnText(4,'mail')
     table.setColumnText(5,'telegram')
+    table.editable = false
+    table
   end
 
   def make_buttons
@@ -33,5 +39,17 @@ class Table_area < FXVerticalFrame
     prev_button.font = font
     pages_count.font = font
   end
+
+  def test_filling
+    list = [['1', "Манукьян А.В.", "@git",    "+79189315711", "mail@mail.ru", "@telega"],
+            ['1', "Анукьян С. Д.", "@gitTTT", "+79181234714", "google@google.com", "@tg"],
+            ['1', "Нукьян Е.Ж.", "@gitik", "+79182718301", "yandex@yandex.ru", "@tgtgtg"]]
+    (0..list.length - 1).each do |i|
+      (0..list[i].length - 1).each do |j|
+        table.setItemText(i, j, list[i][j])
+      end
+    end
+  end
+
 
 end

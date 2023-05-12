@@ -6,7 +6,7 @@ include Fox
 class Main_window < FXMainWindow
   attr_reader :splitter
   def initialize(app)
-    super(app, "Students", width: 900, height: 700)
+    super(app, "Students", width: 1100, height: 700)
     build_menu_bar
     @splitter = FXSplitter.new(self, opts: SPLITTER_HORIZONTAL|LAYOUT_FILL)
     Filter_area.new(splitter)
