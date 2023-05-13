@@ -142,24 +142,42 @@
     }
     class Student_list_db
     {
+
     --
-    -{static}initialize(String)
-    +{static}get_instance(String): Student_list_db
+    +{static}initialize(String, Bool)
     +get_student_by_id(Integer): Student
     +delete_student_by_id(Integer)
     +insert_student(Student)
     +update_student_by_id(Integer, Student)
     +get_student_count(): Integer
-    +request(String)
-    -set_parameters(String)
+    +request(String): Hash
+    ..Setters..
+    -db_driver=()
+    ..Getters..
+    +db_driver()
+    }
+    class Database_driver
+    {
+    +instance: Database_driver
+    __
+    -{static}initialize(String, Bool)
+    +{static}get_instance(String, Bool): Database_driver
+    +get_student_by_id(Integer): Hash
+    +delete_student_by_id(Integer)
+    +insert_student(Student)
+    +update_student_by_id(Integer, Student)
+    +get_student_count(): Integer
+    +request(String): Hash
+    -set_parameters(String, Bool)
     -new_id(): Integer
     ..Setters..
-    -db=()
+    -database=()
     ..Getters..
-    -db()
+    -database()
     }
     Student_list_strategy --* Student_list
     Data_list_student_short o-- Student_short
     Data_list <-- Student_list
     Student <-- Student_list_db
+    Database_driver --* Student_list_db
 @enduml

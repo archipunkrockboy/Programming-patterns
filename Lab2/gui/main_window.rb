@@ -2,15 +2,17 @@
 require 'fox16'
 require_relative './filter_area'
 require_relative './table_area'
+require_relative './control_buttons'
 include Fox
+
 class Main_window < FXMainWindow
-  attr_reader :splitter
+
   def initialize(app)
     super(app, "Students", width: 1100, height: 700)
     build_menu_bar
-    @splitter = FXSplitter.new(self, opts: SPLITTER_HORIZONTAL|LAYOUT_FILL)
-    Filter_area.new(splitter)
-    Table_area.new(splitter)
+    main_frame = FXHorizontalFrame.new(self, opts: SPLITTER_HORIZONTAL|LAYOUT_FILL)
+    Filter_area.new(main_frame)
+    Table_area.new(main_frame, :opts => LAYOUT_SIDE_RIGHT)
   end
 
   def build_menu_bar

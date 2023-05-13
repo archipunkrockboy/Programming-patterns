@@ -1,20 +1,23 @@
 # frozen_string_literal: true
 require 'sqlite3'
-require '../student_models/student'
+# require '../student_models/student'
 class Database_driver
+
   attr_accessor :database
   private_class_method :new
-  @@instance == nil
+  @@instance = nil
 
-  def initialize(database, results_as_hash)
-    self.set_parameters(database, results_as_hash)
-  end
   def self.get_instance(database, results_as_hash)
-    if @@instance.nil?
-      @@instance = new(database, results_as_hash)
+    if @@instance
+      @@instance.set_parameters(database, results_as_hash)
     else
-      self.set_parameters(database, results_as_hash)
+      @@instance = new(database, results_as_hash)
     end
+  end
+
+  def set_parameters(database, results_as_hash)
+    @@instance = SQLite3::Database.open database
+    @@instance.results_as_hash = results_as_hash
   end
 
   def get_student_by_id(id)
@@ -43,18 +46,19 @@ class Database_driver
   def get_student_count
     (database.execute "SELECT COUNT(*) as count FROM Students")[0]["count"]
   end
+
   def request(request)
     database.execute request
   end
 
   private
-  def set_parameters(database, results_as_hash)
-    self.database = SQLite3::Database.open database
-    self.database.results_as_hash = results_as_hash
-  end
 
   def new_id
     (database.execute "SELECT MAX(id) as max FROM Students")[0]["max"] + 1
+  end
+
+  def initialize(database, results_as_hash)
+    set_parameters(database, results_as_hash)
   end
 
 end

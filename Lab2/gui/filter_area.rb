@@ -2,13 +2,18 @@
 require 'fox16'
 include Fox
 class Filter_area < FXVerticalFrame
+  attr_reader :filters, :filter_frames
   def initialize(parent, *args, &blc)
     super(parent, *args, &blc)
+    @filters = []
+    @filter_frames = []
+
     text_field_of_surname_and_init
     make_filter("Git")
     make_filter("Telegram")
     make_filter("Mail")
     make_filter("Phone")
+    drop_filters_button
   end
 
   def text_field_of_surname_and_init
@@ -44,9 +49,24 @@ class Filter_area < FXVerticalFrame
       if combobox.currentItem == 2
         frame.backColor = "green"
         text_field.enable
-
       end
+      filters.append(combobox)
+      filter_frames.append(frame)
     end
+    def drop_filters_button
+      font = FXFont.new(app, "helvetica", 14)
+      drop_button = FXButton.new(self, "Сбросить" ,
+                                 :opts => BUTTON_NORMAL|LAYOUT_LEFT)
+      drop_button.font = font
 
+      drop_button.connect(SEL_COMMAND) do
+        (0..filters.length - 1).each do |i|
+          filters[i].currentItem = 0
+          filter_frames[i].backColor = "red"
+        end
+      end
+
+
+    end
   end
 end

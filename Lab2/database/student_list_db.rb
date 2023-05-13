@@ -5,7 +5,7 @@ require_relative './database_driver'
 class Student_list_db
 
   private_class_method :new
-  attr_accessor :db_driver
+  attr_reader :db_driver
 
   def initialize(database: "University.sqlite", results_as_hash: true)
     self.db_driver = Database_driver.get_instance(database, results_as_hash)
@@ -32,5 +32,6 @@ class Student_list_db
   def request(request)
     db_driver.request(request)
   end
-
+  private
+  attr_writer :db_driver
 end
