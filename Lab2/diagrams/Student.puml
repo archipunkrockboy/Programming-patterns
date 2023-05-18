@@ -263,13 +263,18 @@
     --
     {static}initialize(Main_window, Object)
     }
-
+    Data_table                <-- Data_list
     Student_list_file_adapter o-- Student_list_base
-    Student_list_strategy --* Student_list_base
-    Student_list_file_adapter --* Student_list
-    Data_list_student_short o-- Student_short
-    Data_list <-- Student_list_base
-    Student <-- Student_list_db
-    Student_list_db --* Student_list
-    Database_driver --o Student_list_db
+    Student_list_base         *-- Student_list_strategy
+    Student_list              *-- Student_list_file_adapter
+    Data_list_student_short   o-- Student_short
+    Data_list                 <-- Student_list_base
+    Student                   <-- Student_list_db
+    Student_list              *-- Student_list_db
+    Student_list_db           *-- Database_driver
+    Main_window               *-- Student_list_controller
+    Main_window               o-- Filter_area
+    Main_window               o-- Table_area
+    Table_area                o-- Control_buttons
+
 @enduml
