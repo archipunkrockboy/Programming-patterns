@@ -93,25 +93,52 @@
     }
     class Student_list
     {
-    +list: Array
-    -strategy: Object
+    +adapter
     --
     +{static}initialize(Object)
-    +read_from(String)
-    +write_to(String)
-    +get_student_short_list(Integer, Data_list): Data_list
+    +get_k_n_student_short_list(Integer, Data_list): Data_list
     +get_student_by_id(Integer): Student
     +update_student_by_id(Integer)
-    +insert_student(Student)
+    +add_student(Student)
     +delete_student_by_id(Integer)
-    +sort_by()
     +get_student_count(): Integer
-    +get_id(): Integer
-    ..Setters..
-    -strategy=()
     ..Getters..
-    +list()
-    -strategy()
+    +adapter
+    }
+    class Student_list_base
+    {
+    +list: Array
+        +list: Array
+        -strategy: Object
+        --
+        +{static}initialize(Object)
+        +read_from(String)
+        +write_to(String)
+        +get_student_short_list(Integer, Data_list): Data_list
+        +get_student_by_id(Integer): Student
+        +update_student_by_id(Integer)
+        +insert_student(Student)
+        +delete_student_by_id(Integer)
+        +sort_by()
+        +get_student_count(): Integer
+        +get_id(): Integer
+        ..Setters..
+        -strategy=()
+        ..Getters..
+        +list()
+        -strategy()
+    }
+    class Student_list_file_adapter
+    {
+    +file_driver: Student_list_base
+    +path: String
+    --
+    +get_k_n_student_short_list(Integer, Data_list): Data_list
+    +get_student_by_id(Integer): Student
+    +update_student_by_id(Integer)
+    +add_student(Student)
+    +delete_student_by_id(Integer)
+    +get_student_count(): Integer
     }
     class Student_list_strategy
     {
@@ -142,7 +169,6 @@
     }
     class Student_list_db
     {
-
     --
     +{static}initialize(String, Bool)
     +get_student_by_id(Integer): Student
@@ -175,9 +201,75 @@
     ..Getters..
     -database()
     }
-    Student_list_strategy --* Student_list
+
+    class Main_window
+    {
+    +controller: Student_list_controller
+    +filter_area: Filter_area
+    +Table_area: Table_area
+    --
+    +initialize(FXApp, String, Array)
+    +build_menu_bar()
+    +create()
+    ..Getters..
+    +controller()
+    }
+    class Filter_area
+    {
+    +filters: Array
+    +filters_frames: Array
+    --
+    +{static}initialize(FXParent, Hash, Block)
+    +text_field_of_surname_and_init()
+    +make_filter(String)
+    +drop_filters_button()
+    ..Getters..
+    +filters()
+    +filter_frames()
+    }
+    class Table_area
+    {
+    -left_frame: FXVerticalFrame
+    -right_frame: FXVerticalFrame
+    +table: FXTable
+    +control_buttons: Hash
+    +page_buttons: Hash
+    --
+    +{static}initialize(FXParent, Hash, Block)
+    +build_table(): FXTable
+    +make_page_buttons()
+    +test_filling()
+    +buttons_control()
+    count_selected_rows(): Integer
+    ..Getters..
+    +table()
+    +control_buttons()
+    +page_buttons()
+    -left_frame()
+    -right_frame()
+    }
+    class Control_buttons
+    {
+    +buttons: Hash
+    --
+    +{static}initialize(FXParent, Hash, Block)
+    +make_table_buttons()
+    +buttons_control(Integer)
+    }
+    class Student_list_controller
+    {
+    +view: Main_window
+    +student_list: Student_list
+    --
+    {static}initialize(Main_window, Object)
+    }
+
+    Student_list_file_adapter o-- Student_list_base
+    Student_list_strategy --* Student_list_base
+    Student_list_file_adapter --* Student_list
     Data_list_student_short o-- Student_short
-    Data_list <-- Student_list
+    Data_list <-- Student_list_base
     Student <-- Student_list_db
-    Database_driver --* Student_list_db
+    Student_list_db --* Student_list
+    Database_driver --o Student_list_db
 @enduml
