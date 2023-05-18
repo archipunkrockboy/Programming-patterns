@@ -27,7 +27,6 @@ class Control_buttons < FXVerticalFrame
   end
 
   def buttons_control(selected_rows_count)
-    p selected_rows_count
     if selected_rows_count == 0
       buttons["delete_button"].disable
       buttons["change_button"].disable

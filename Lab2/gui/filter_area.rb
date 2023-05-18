@@ -58,15 +58,12 @@ class Filter_area < FXVerticalFrame
       drop_button = FXButton.new(self, "Сбросить" ,
                                  :opts => BUTTON_NORMAL|LAYOUT_LEFT)
       drop_button.font = font
-
       drop_button.connect(SEL_COMMAND) do
         (0..filters.length - 1).each do |i|
           filters[i].currentItem = 0
           filter_frames[i].backColor = "red"
         end
       end
-
-
     end
   end
 end

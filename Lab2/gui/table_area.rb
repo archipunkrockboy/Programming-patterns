@@ -5,13 +5,17 @@ require_relative '../student_models/student_short'
 require_relative './control_buttons'
 include Fox
 class Table_area < FXHorizontalFrame
-  attr_reader :table, :left_frame, :right_frame, :control
+  attr_reader :table, :control_buttons, :page_buttons
+  
+  #page_buttons - кнопки, отвечающие за смену страниц
+  # control_buttons - кнопки добавить, изменить, удалить
   def initialize(p, *args, &blk)
     super
     @left_frame = FXVerticalFrame.new(self)
     @right_frame = FXVerticalFrame.new(self)
     @table = build_table
-    @control = Control_buttons.new(right_frame)
+    @control_buttons = Control_buttons.new(right_frame)
+    @page_buttons = {}
     test_filling
     make_page_buttons
     buttons_control
@@ -35,15 +39,16 @@ class Table_area < FXHorizontalFrame
     font = FXFont.new(app, "helvetica", 14)
     frame = FXHorizontalFrame.new(left_frame, :opts => LAYOUT_FILL)
 
-    next_button = FXButton.new(frame, ">" ,
+    page_buttons["next_button"] = FXButton.new(frame, ">" ,
                                :opts => BUTTON_NORMAL|LAYOUT_RIGHT)
-    prev_button = FXButton.new(frame, "<" ,
+    page_buttons["prev_button"] = FXButton.new(frame, "<" ,
                                :opts => BUTTON_NORMAL|LAYOUT_LEFT)
     pages_count = FXLabel.new(frame, "1/1",
                               :opts=> LAYOUT_CENTER_X)
 
-    next_button.font = font
-    prev_button.font = font
+
+    page_buttons["next_button"].font = font
+    page_buttons["prev_button"].font = font
     pages_count.font = font
   end
 
@@ -74,4 +79,6 @@ class Table_area < FXHorizontalFrame
     end
     count
   end
+  private
+  attr_reader :left_frame, :right_frame
 end
