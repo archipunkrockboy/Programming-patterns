@@ -75,20 +75,23 @@
     --
     +{static}initialize(Array)
     +select(Integer)
+
     +get_data(): Data_table
     #fill_row(Object): Array
     #get_names(): Array
     ..Setters..
     +list=(Array)
     ..Getters..
-    -list(): Array
+    +list(): Array
     +selected_items(): Array
      }
     class Data_list_student_short extends Data_list
     {
+    +observer(Main_window)
     __
     +{static}initialize(list)
     +get_names(): Array
+    +notify
     #fill_row(Student_short): Array
     }
     class Student_list
@@ -276,5 +279,6 @@
     Main_window               o-- Filter_area
     Main_window               o-- Table_area
     Table_area                o-- Control_buttons
-
+    Data_list_student_short   o-- Main_window
+    
 @enduml
