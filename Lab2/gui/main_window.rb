@@ -50,14 +50,21 @@ class Main_window < FXMainWindow
 
   def set_table_parameters(column_names, row_count)
     table_area.column_count = column_names.length
-
     table_area.row_count = row_count
     table_area.table.setTableSize(table_area.row_count, table_area.column_count)
+
     (0..table_area.column_count-1).each do |i|
       table_area.table.setColumnText(i, column_names[i])
     end
   end
 
+  def set_table_data(data)
+    (0..data.table.length - 1).each do |i|
+      (0..data.table[i].length - 1).each do |j|
+        table_area.table.setItemText(i, j, data.table[i][j].to_s)
+      end
+    end
+  end
 
 end
 
