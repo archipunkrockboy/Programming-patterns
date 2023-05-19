@@ -25,11 +25,11 @@ class Filter_area < FXVerticalFrame
 
   def make_filter(parameter)
     frame = FXVerticalFrame.new(self, :padTop =>10, :padBottom => 10, :vSpacing => 10)
-    frame.backColor = "red"
+    frame.backColor = "yellow"
     FXLabel.new(frame, parameter)
 
     combobox = FXComboBox.new(frame, 23)
-    combobox.fillItems(["Нет", "Не важно", "Да"])
+    combobox.fillItems(["Не важно", "Нет", "Да"])
     combobox.numVisible=(3)
 
     text_field = FXTextField.new(frame, 25)
@@ -37,12 +37,12 @@ class Filter_area < FXVerticalFrame
 
     combobox.connect(SEL_COMMAND) do
       if combobox.currentItem == 0
-        frame.backColor = "red"
+        frame.backColor = "yellow"
         text_field.disable
       end
 
       if combobox.currentItem == 1
-        frame.backColor = "yellow"
+        frame.backColor = "red"
         text_field.disable
       end
 
@@ -61,7 +61,7 @@ class Filter_area < FXVerticalFrame
       drop_button.connect(SEL_COMMAND) do
         (0..filters.length - 1).each do |i|
           filters[i].currentItem = 0
-          filter_frames[i].backColor = "red"
+          filter_frames[i].backColor = "yellow"
         end
       end
     end

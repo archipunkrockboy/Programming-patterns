@@ -7,6 +7,7 @@ include Fox
 class Table_area < FXHorizontalFrame
   attr_reader :table, :control_buttons, :page_buttons
   attr_accessor :row_count, :column_count
+
   #page_buttons - кнопки, отвечающие за смену страниц
   # control_buttons - кнопки добавить, изменить, удалить
   def initialize(p, *args, &blk)
@@ -18,7 +19,6 @@ class Table_area < FXHorizontalFrame
     @page_buttons = {}
     @row_count = 0
     @column_count = 0
-
     make_page_buttons
     buttons_control
   end
@@ -26,13 +26,7 @@ class Table_area < FXHorizontalFrame
   def build_table
     frame = FXVerticalFrame.new(left_frame)
     table = FXTable.new(frame, :opts => LAYOUT_EXPLICIT, :width => 700, :height => 500)
-    # table.setTableSize(20, 6)
-    # table.setColumnText(0, "id")
-    # table.setColumnText(1,'shortname')
-    # table.setColumnText(2,'git')
-    # table.setColumnText(3,'phone')
-    # table.setColumnText(4,'mail')
-    # table.setColumnText(5,'telegram')
+
     table.editable = false
     table
   end
@@ -69,7 +63,7 @@ class Table_area < FXHorizontalFrame
 
   def buttons_control
     table.connect(SEL_SELECTED) do |sender, selector, data|
-      control.buttons_control(count_selected_rows)
+      control_buttons.buttons_control(count_selected_rows)
     end
   end
 
