@@ -6,7 +6,7 @@ require_relative './control_buttons'
 include Fox
 class Table_area < FXHorizontalFrame
   attr_reader :table, :control_buttons, :page_buttons
-  
+  attr_accessor :row_count, :column_count
   #page_buttons - кнопки, отвечающие за смену страниц
   # control_buttons - кнопки добавить, изменить, удалить
   def initialize(p, *args, &blk)
@@ -16,7 +16,9 @@ class Table_area < FXHorizontalFrame
     @table = build_table
     @control_buttons = Control_buttons.new(right_frame)
     @page_buttons = {}
-    test_filling
+    @row_count = 0
+    @column_count = 0
+
     make_page_buttons
     buttons_control
   end
@@ -24,13 +26,13 @@ class Table_area < FXHorizontalFrame
   def build_table
     frame = FXVerticalFrame.new(left_frame)
     table = FXTable.new(frame, :opts => LAYOUT_EXPLICIT, :width => 700, :height => 500)
-    table.setTableSize(20, 6)
-    table.setColumnText(0, "id")
-    table.setColumnText(1,'shortname')
-    table.setColumnText(2,'git')
-    table.setColumnText(3,'phone')
-    table.setColumnText(4,'mail')
-    table.setColumnText(5,'telegram')
+    # table.setTableSize(20, 6)
+    # table.setColumnText(0, "id")
+    # table.setColumnText(1,'shortname')
+    # table.setColumnText(2,'git')
+    # table.setColumnText(3,'phone')
+    # table.setColumnText(4,'mail')
+    # table.setColumnText(5,'telegram')
     table.editable = false
     table
   end

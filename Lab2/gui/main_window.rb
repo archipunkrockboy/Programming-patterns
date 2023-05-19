@@ -7,15 +7,18 @@ require_relative './student_list_controller'
 include Fox
 
 class Main_window < FXMainWindow
-  attr_reader :controller
+  attr_reader :controller, :table_area
 
   def initialize(app)
     super(app, "Students", width: 1100, height: 700)
-    @controller = Student_list_controller.new(self)
-    build_menu_bar
     main_frame = FXHorizontalFrame.new(self, opts: SPLITTER_HORIZONTAL|LAYOUT_FILL)
-    Filter_area.new(main_frame)
-    Table_area.new(main_frame, :opts => LAYOUT_SIDE_RIGHT)
+    @controller = Student_list_controller.new(self)
+    @filter_area = Filter_area.new(main_frame)
+    @table_area = Table_area.new(main_frame, :opts => LAYOUT_SIDE_RIGHT)
+    controller.refresh_data
+    build_menu_bar
+
+
     @switcher = FXSwitcher.new(self)
   end
 
@@ -45,6 +48,15 @@ class Main_window < FXMainWindow
     show(PLACEMENT_SCREEN)
   end
 
+  def set_table_parameters(column_names, row_count)
+    table_area.column_count = column_names.length
+
+    table_area.row_count = row_count
+    table_area.table.setTableSize(table_area.row_count, table_area.column_count)
+    (0..table_area.column_count-1).each do |i|
+      table_area.table.setColumnText(i, column_names[i])
+    end
+  end
 
 
 end
