@@ -1,5 +1,7 @@
+require_relative 'data_table'
+require_relative 'data_list_student_short'
 class Data_list
-  attr_reader :selected_items
+  attr_reader :selected_items, :list
   def initialize(list)
     self.list = list #list.sort
     @selected_items = []
@@ -35,6 +37,5 @@ class Data_list
     []
   end
 
-  private
-  attr_reader :list
+
 end

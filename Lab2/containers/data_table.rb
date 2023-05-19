@@ -1,5 +1,7 @@
-
+require_relative 'data_list'
+require_relative 'data_list_student_short'
 class Data_table
+  attr_reader :table
   def initialize(table)
     @table = table
   end
@@ -21,6 +23,5 @@ class Data_table
     table[0].size
   end
 
-  private
-  attr_reader :table
+
 end
