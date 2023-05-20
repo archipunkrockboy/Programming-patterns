@@ -280,5 +280,5 @@
     Main_window               o-- Table_area
     Table_area                o-- Control_buttons
     Data_list_student_short   o-- Main_window
-    
+
 @enduml

@@ -1,0 +1,55 @@
+@startuml
+ participant "main.rb"                         as main
+
+
+
+
+ boundary    "mw:    Main_window"                    as mw
+ boundary    "fa:    Filter_area"                    as fa
+ boundary    "ta:    Table_area"                     as ta
+ control     "slc:   Student_list_constroller"       as slc
+ entity      "dlss:  Data_list_student_short"        as dlss
+ entity      "sl:    Student_list"                   as sl
+ entity      "sldb:  Student_list_db"                 as sldb
+ entity      "dd:    Database_driver"                 as dd
+
+ database    DB                                      as db
+
+ main -> mw     : <<new>>
+ mw   -> mw     : <<build_menu_bar>>
+ mw   -> fa     : <<new>>
+ fa   -> fa     : <<drop_filter_button>>
+ fa   -> fa     : <<make_filter>>
+ fa  --> mw
+ mw   -> ta     : <<new>>
+ ta  --> mw
+ mw   -> slc    : <<new>>(self)
+ slc  -> sl     : <<new>>
+ sl   -> sldb   : <<new>>
+ sldb -> dd     : <<get_instance>>
+ dd   -> dd     : <<set_parameters>>
+ dd   -> db     : <<connect>>
+ db   --> dd
+ dd   --> slc
+ slc  --> mw
+ mw   -> slc    : <<refresh_data>>
+ slc  -> sl     : <<get_k_n_student_short>>
+ sl   -> sldb   : <<get_k_n_student_short>>
+ sldb -> dd     : <<request>>
+ dd   -> db     : <<SELECT>>
+ dd  --> sldb
+ sldb -> dlss   : <<new>>
+ dlss --> slc
+ slc  -> dlss   : <<observer_registration>>(View)
+ dlss --> slc
+ slc  -> dlss   : <<notify_all>>
+ dlss -> dlss   : <<get_names>>
+ dlss --> mw     : <<set_table_parameters(names, rows_count)
+ mw  -> dlss
+ dlss -> dlss   : <<get_data>>
+ dlss --> mw     : <<set_table_data>>(data_table)
+ mw -> dlss
+ dlss --> slc
+ slc   --> mw
+
+ @enduml
