@@ -4,6 +4,7 @@ require_relative './filter_area'
 require_relative './table_area'
 require_relative './control_buttons'
 require_relative './student_list_controller'
+require_relative '../student_list_models/student_list_file_adapter'
 include Fox
 
 class Main_window < FXMainWindow
@@ -11,15 +12,15 @@ class Main_window < FXMainWindow
 
   def initialize(app)
     super(app, "Students", width: 1100, height: 700)
+    build_menu_bar
     main_frame = FXHorizontalFrame.new(self, opts: SPLITTER_HORIZONTAL|LAYOUT_FILL)
-    @controller = Student_list_controller.new(self)
     @filter_area = Filter_area.new(main_frame)
     @table_area = Table_area.new(main_frame, :opts => LAYOUT_SIDE_RIGHT)
+    previous_page
+    next_page
+    @controller = Student_list_controller.new(self)
     controller.refresh_data
-    build_menu_bar
 
-
-    @switcher = FXSwitcher.new(self)
   end
 
   def build_menu_bar
@@ -32,7 +33,7 @@ class Main_window < FXMainWindow
       dialog.selectMode = SELECTFILE_MULTIPLE
       dialog.patternList = ["Source (*.txt, *.yaml, *.json)"]
       if dialog.execute != 0
-        import_students(dialog.filenames)
+        p dialog.filenames
       end
     end
 
@@ -47,6 +48,7 @@ class Main_window < FXMainWindow
     super
     show(PLACEMENT_SCREEN)
   end
+
 
   def set_table_parameters(column_names, row_count)
     table_area.column_count = column_names.length
@@ -65,6 +67,24 @@ class Main_window < FXMainWindow
       end
     end
   end
+
+  def previous_page
+    self.table_area.page_buttons["prev_button"].connect(SEL_COMMAND) do
+      self.controller.previous_page
+    end
+  end
+
+  def next_page
+    self.table_area.page_buttons["next_button"].connect(SEL_COMMAND) do
+      self.controller.next_page
+    end
+  end
+
+  def show_pages(current, max)
+    self.table_area.page_buttons["page_count"].text = "#{current}/#{max}"
+  end
+
+
 
 end
 

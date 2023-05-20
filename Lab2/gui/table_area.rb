@@ -39,13 +39,13 @@ class Table_area < FXHorizontalFrame
                                :opts => BUTTON_NORMAL|LAYOUT_RIGHT)
     page_buttons["prev_button"] = FXButton.new(frame, "<" ,
                                :opts => BUTTON_NORMAL|LAYOUT_LEFT)
-    pages_count = FXLabel.new(frame, "1/1",
+    page_buttons["page_count"] = FXLabel.new(frame, "",
                               :opts=> LAYOUT_CENTER_X)
 
 
     page_buttons["next_button"].font = font
     page_buttons["prev_button"].font = font
-    pages_count.font = font
+    page_buttons["page_count"].font = font
   end
 
 
@@ -63,14 +63,14 @@ class Table_area < FXHorizontalFrame
 
   def buttons_control
     table.connect(SEL_SELECTED) do |sender, selector, data|
-      control_buttons.buttons_control(count_selected_rows)
+      self.control_buttons.buttons_control(count_selected_rows)
     end
   end
 
 
   def count_selected_rows
     count = 0
-    (0..19).each do |i|
+    (0..self.row_count - 1).each do |i|
       count += 1 if table.rowSelected?(i)
     end
     count
