@@ -266,6 +266,21 @@
     --
     {static}initialize(Main_window, Object)
     }
+
+    class Add_student_controller
+    {
+    +view
+    +parent_controller: Student_list_controller
+    --
+    +add_student()
+    +change_button_state()
+    +check_valid(): Bool
+    +get_student_hash():Hash
+    ..Getters..
+    parent_controller
+    }
+
+
     Data_table                <-- Data_list
     Student_list_file_adapter o-- Student_list_base
     Student_list_base         *-- Student_list_strategy

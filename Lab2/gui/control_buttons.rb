@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 require 'fox16'
+require_relative 'add_student_window'
 include Fox
 class Control_buttons < FXVerticalFrame
   attr_reader :buttons
@@ -40,4 +41,5 @@ class Control_buttons < FXVerticalFrame
       buttons["change_button"].disable
     end
   end
+
 end

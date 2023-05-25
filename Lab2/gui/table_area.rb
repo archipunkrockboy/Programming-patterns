@@ -5,8 +5,8 @@ require_relative '../student_models/student_short'
 require_relative './control_buttons'
 include Fox
 class Table_area < FXHorizontalFrame
-  attr_reader :table, :control_buttons, :page_buttons
-  attr_accessor :row_count, :column_count
+  attr_reader :table, :page_buttons
+  attr_accessor :row_count, :column_count, :control_buttons
 
   #page_buttons - кнопки, отвечающие за смену страниц
   # control_buttons - кнопки добавить, изменить, удалить

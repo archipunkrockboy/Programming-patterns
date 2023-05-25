@@ -1,9 +1,12 @@
 # frozen_string_literal: true
-
+require_relative 'student_list_base'
+require_relative 'student_list_yaml'
+require_relative 'student_list_json'
+require_relative 'student_list_txt'
 class Student_list_file_adapter
   attr_reader :file_driver, :file
-  def initialize(strategy, path)
-    @file_driver = Student_list_base(strategy)
+  def initialize(strategy, path: nil)
+    @file_driver = Student_list_base.new(strategy, path)
     @file = path
   end
 
@@ -11,7 +14,7 @@ class Student_list_file_adapter
     file_driver.get_student_by_id(id)
   end
 
-  def get_k_n_student_short_list(k, n)
+  def get_k_n_student_short(k, n)
     file_driver.get_k_n_student_short(k, n)
   end
 

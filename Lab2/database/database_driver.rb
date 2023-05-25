@@ -16,19 +16,19 @@ class Database_driver
   end
 
   def set_parameters(database, results_as_hash)
-    @@instance = SQLite3::Database.open database
-    @@instance.results_as_hash = results_as_hash
+    self.database = SQLite3::Database.open database
+    self.database.results_as_hash = results_as_hash
   end
 
   def get_student_by_id(id)
-    database.execute "SELECT * FROM Students WHERE id == ?", id
+    database.execute "SELECT * FROM Students WHERE id == ?", id[0]
   end
 
   def delete_student_by_id(id)
     database.execute "DELETE From Students WHERE id == ?", id
   end
 
-  def insert_student(student)
+  def add_student(student)
     database.execute "INSERT INTO Students (id, surname, name, lastname, phone, tg, mail, git)
                 VALUES (?, ?, ?, ?, ?, ?, ?, ?)", new_id, student.surname, student.name, student.lastname,
                student.phone, student.tg, student.mail, student.git

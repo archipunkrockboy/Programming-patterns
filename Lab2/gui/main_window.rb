@@ -5,6 +5,7 @@ require_relative './table_area'
 require_relative './control_buttons'
 require_relative './student_list_controller'
 require_relative '../student_list_models/student_list_file_adapter'
+require_relative './add_student_window'
 include Fox
 
 class Main_window < FXMainWindow
@@ -13,14 +14,14 @@ class Main_window < FXMainWindow
   def initialize(app)
     super(app, "Students", width: 1100, height: 700)
     build_menu_bar
-    main_frame = FXHorizontalFrame.new(self, opts: SPLITTER_HORIZONTAL|LAYOUT_FILL)
-    @filter_area = Filter_area.new(main_frame)
-    @table_area = Table_area.new(main_frame, :opts => LAYOUT_SIDE_RIGHT)
+    @main_frame = FXHorizontalFrame.new(self, opts: SPLITTER_HORIZONTAL|LAYOUT_FILL)
+    @filter_area = Filter_area.new(@main_frame)
+    @table_area = Table_area.new(@main_frame, :opts => LAYOUT_SIDE_RIGHT)
     previous_page
     next_page
     @controller = Student_list_controller.new(self)
     controller.refresh_data
-
+    manage_add_button
   end
 
   def build_menu_bar
@@ -84,7 +85,11 @@ class Main_window < FXMainWindow
     self.table_area.page_buttons["page_count"].text = "#{current}/#{max}"
   end
 
-
+  def manage_add_button
+    table_area.control_buttons.buttons["add_button"].connect(SEL_COMMAND) do
+      controller.show_add_student_window
+    end
+  end
 
 end
 

@@ -19,7 +19,17 @@ class Student < Student_short
   end
 
   def self.from_hash(hash)
-    new(surname: hash["surname"], name: hash["name"], lastname: hash["lastname"], id: hash["id"], git: hash["git"], phone: hash["phone"], tg: hash["tg"], mail: hash["mail"])
+    puts hash[:lastname]
+    new(
+        surname: (hash["surname"] or hash[:surname]),
+        name: (hash["name"] or hash[:name]),
+        lastname: (hash["lastname"] or hash[:lastname]),
+        id: (hash["id"] or hash[:id]),
+        git: (hash["git"] or hash[:git]),
+        phone: (hash["phone"] or hash[:phone]),
+        tg: (hash["tg"] or hash[:tg]),
+        mail: (hash["mail"] or hash[:mail])
+    )
   end
 
   def to_s
@@ -46,7 +56,7 @@ class Student < Student_short
 
   #валидаторы
   def self.valid_phone?(phone)
-    phone.match(/^(\+7|8)((\(\d{3}\))|\d{3})\d{3}(-\d{2}-\d{2}|\d{4})$/)
+    phone.match(/^(\+7|8|7)((\(\d{3}\))|\d{3})\d{3}(-\d{2}-\d{2}|\d{4})$/)
   end
 
   def self.valid_mail?(mail)
@@ -58,8 +68,8 @@ class Student < Student_short
   end
 
   def self.valid_name?(name)
-    raise ArgumentError, "The argument must be String, not #{name.class}!" unless name.is_a?(String)
-    # name.match(/^[a-zA-Z]+/)
+    #raise ArgumentError, "The argument must be String, not #{name.class}!" unless name.is_a?(String)
+    #name.match(/^[а-яА-Я]+/)
     true
   end
 
@@ -113,6 +123,7 @@ class Student < Student_short
     raise ArgumentError, "Invalid phone value: #{phone}" if !phone.nil? && !Student.valid_phone?(phone)
     @phone = phone
   end
+
 end
 
 

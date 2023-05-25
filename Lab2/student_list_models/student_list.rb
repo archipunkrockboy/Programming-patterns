@@ -1,7 +1,10 @@
 require_relative 'student_list_strategy'
+require_relative '../database/student_list_db'
 class Student_list
   attr_reader :adapter
-  def initialize(adapter)
+
+  #adapter - объект класса student_list_file_adapter/student_list_db
+  def initialize(adapter=Student_list_db.new)
     @adapter = adapter
   end
 
@@ -9,8 +12,8 @@ class Student_list
     adapter.get_student_by_id(id)
   end
 
-  def get_k_n_student_short_list(k, n)
-    adapter.get_k_n_student_short_list(k, n)
+  def get_k_n_student_short(k, n)
+    adapter.get_k_n_student_short(k, n)
   end
 
   def add_student(student)
@@ -28,6 +31,6 @@ class Student_list
   def get_student_count
     adapter.get_student_count
   end
-  
+
 end
 

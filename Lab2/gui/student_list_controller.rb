@@ -12,7 +12,6 @@ class Student_list_controller
     @student_list = Student_list.new(adapter)
     @current_page = 0
     @max_page = (self.student_list.get_student_count / 20).ceil
-    p @max_page
   end
 
   def refresh_data
@@ -25,14 +24,23 @@ class Student_list_controller
   def previous_page
     if self.current_page > 0
       self.current_page -= 1
-      p self.current_page
       self.refresh_data
     end
   end
 
   def next_page
-    self.current_page += 1
-    p self.current_page
-    self.refresh_data
+    if self.max_page > current_page
+      self.current_page += 1
+      self.refresh_data
+    end
+  end
+
+  def show_add_student_window
+    show_add_student_window = Add_student_window.new(view)
+    add_student_controller = Add_student_controller.new(show_add_student_window, self)
+    show_add_student_window.controller = add_student_controller
+    show_add_student_window.create
+    show_add_student_window.show
+
   end
 end
